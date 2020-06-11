@@ -1,0 +1,16 @@
+<%= form_with(model: carcost, local: true) do |form| %>
+  <%= render 'shared/error', obj: @carcost %>
+  <div class="field card-body">
+    <%= form.label :condition %>
+    <%= form.text_field :condition ,placeholder: 'Enter Car Condition' %>
+  </div>
+
+  <div class="field card-body">
+    <%= form.label :price %>
+    <%= form.text_field :price, placeholder: 'Enter Car Cost' %>
+  </div>
+
+  <div class="actions text-center">
+    <%= form.submit class: 'btn btn-success'%>
+  </div>
+<% end %>

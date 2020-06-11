@@ -1,0 +1,20 @@
+<div class="container">
+  <%= form_with(model: token, local: true) do |form| %>
+    <%= render 'shared/error' , obj: @token %>
+    <div class="d-flex flex-column align-items-center ">
+      <div class="field text-center text-dark my-2">
+        <%= form.label :phoneno %>
+        <%= form.text_field :phoneno , class: "form-control" %>
+      </div>
+      <% if logged_in? && current_user.role.roles == "ADMIN" %>
+        <div class="field text-center">
+          <%= form.label :status %>
+          <%= form.text_field :status , class: "form-control"%>
+        </div>
+      <%end%>
+      <div class="actions text-center my-3">
+        <%= form.submit  %>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,20 @@
+  <%= stylesheet_link_tag 'pages', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+<div class="container home">
+  <div class="row text-center">
+    <div class="col-6">
+      <div class="lead">
+        <h3 class=" display-3"> Hello</h3>
+          Here you can buy or sell your old cars and get exciting benefits along with that you can get the quotation of your cars 
+      </div>
+    </div>
+  <div>
+  <% if logged_in?%>
+  <div class="my-4">
+    <%= link_to 'Sell', new_seller_path, class: "btn px-5 btn-lg btn-info rounded-pill" if logged_in? && current_user.role.roles == 'SELLER' %>
+  </div>
+  <div>
+    <%= link_to 'Buy', sellers_path, class: "btn btn-lg px-5 btn-primary rounded-pill" if logged_in? && current_user.role.roles =='BUYER' %>
+  </div>
+  <% end %>
+</div>

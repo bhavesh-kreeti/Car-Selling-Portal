@@ -1,0 +1,31 @@
+<%= form_for(:session , url: login_path) do |f| %>
+
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+  <!-- Tabs Titles -->
+
+  <!-- Icon -->
+  <div class="fadeIn first ">
+    <h3 class="py-3 h2 text-dark card-header " >Login</h3>
+  </div>
+
+  <!-- Login Form -->
+  <form>
+
+  <div class="field fadeIn second mt-3" id="login" >
+  <%= f.label :email %><br />
+  <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "", type: 'text' %>
+  </div>
+
+  <div class="field fadeIn third" id="password">
+  <%= f.label :password %><br />
+  <%= f.password_field :password, autocomplete: "current-password", type: "password" %>
+  </div>
+
+  <div class="actions fadeIn fourth">
+  <%= f.submit "Log in" , type: "submit" %>
+  </div>
+  </form>
+  </div>
+</div>
+<% end %>

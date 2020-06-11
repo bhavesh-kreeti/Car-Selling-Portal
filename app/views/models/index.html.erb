@@ -1,0 +1,32 @@
+<% if Brand.first.nil? %>
+  <h2>You dont have any brand to be associated with model.</h2>
+  <h3>Create a brand </h3>
+  <%= link_to 'Add new Brand', new_brand_path , class: 'btn btn-primary my-4' %>
+<% else %>
+  <h1 class="text-center card-header">Model index </h1>
+
+  <div class="card-header text-center">
+    <%= link_to 'Add new Model', new_model_path , class: 'btn btn-primary my-4' %>
+  </div>
+
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th>Brand Name</th>
+        <th>Model Name</th>
+        <th>Edit</th>
+        <th>Destroy</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @models.each do |model| %>
+      <tr>
+        <td><%= model.brand.name %></td>
+        <td><%= model.name  %></td>
+        <td><%= link_to 'Edit', edit_model_path(model), class: 'btn btn-warning '  %></td>
+        <td><%= link_to 'Destroy', model, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger '  %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% end %>

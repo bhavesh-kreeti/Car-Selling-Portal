@@ -1,0 +1,28 @@
+<h1>Carcosts</h1>
+
+
+<% if CarCost.count < 4  %>
+  <% count = 4-CarCost.count %>
+  <h3>You need to make <%= count %> more condition</h3>
+  <%= link_to 'New Car Cost', new_car_cost_path, class: "btn btn-info my-4" %>
+  <% end %>
+  <table class="table">
+    <thead class="thead-dark">
+    <tr>
+      <th>Condition</th>
+      <th>Price</th>
+      <th>Edit</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @carcosts.each do |carcost| %>
+      <tr>
+        <td><%= carcost.condition %></td>
+        <td><%=  number_with_delimiter(carcost.price, delimiter: ',') %></td>
+        <td><%= link_to 'Edit', edit_car_cost_path(carcost) , class: 'btn btn-warning ' %> </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+

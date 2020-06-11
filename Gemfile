@@ -2,9 +2,10 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.5'
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.3'
+# Bcrypt for password encryption
+gem 'bcrypt', '~> 3.1', '>= 3.1.13'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
@@ -52,3 +53,9 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'jquery-rails', '~> 4.3', '>= 4.3.1'
+gem 'letter_opener', '~> 1.4', '>= 1.4.1'
+gem 'mail', '~> 2.7', '>= 2.7.1'
+gem 'gritter', '~> 1.2'
+gem 'geocoder', '~> 1.6', '>= 1.6.2'
+gem 'hirb'

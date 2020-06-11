@@ -1,0 +1,30 @@
+<% if @locations.empty? %>
+  <div class="text-center">
+    <h1>You dont have any branch Create a new branch</h1>
+    <%= link_to 'Create New Branch', new_location_path , class: "btn btn-info btn-lg mt-4" %>
+  </div>
+<% else %> 
+  <div class="text-center my-4">
+    <h1 Class="card-header bg-dark text-light">My Branches</h1>
+  </div>
+  <div class="text-center my-4">
+    <%= link_to 'Create New Branch', new_location_path, class: "btn btn-info btn-lg" %>
+  </div>
+  <table class="table">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">Address</th>
+        <th scope="col">Latitude</th>
+        <th scope="col">Longitude</th>
+      </tr>
+    </thead>
+  <tbody>
+    <% @locations.each do |location| %>
+    <tr>
+      <td><%= location.address %></td>
+      <td><%= location.latitude %></td>
+      <td><%= location.longitude %></td>
+    </tr>
+    <% end %>
+  </table>
+<% end %>

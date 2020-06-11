@@ -1,0 +1,31 @@
+<div class="container home">
+  <h2 class="display -2 mx-auto">Welcome to admin page</h2>
+  <div class="d-flex flex-column">
+    <div class="card my-3">
+      <%= link_to 'City page', cities_path, class: "btn btn-info" %>
+    </div>
+    <div class="card my-3">
+      <%= link_to 'Model page', models_path, class: "btn btn-info" %>
+    </div>
+    <div class="card my-3">
+      <%= link_to ' variant page', variants_path, class: "btn btn-info" %>
+    </div> 
+    <div class="card my-3">
+      <%= link_to ' Brand page', brands_path, class: "btn btn-info" %>
+    </div>
+    <div class="card my-3">
+      <%= link_to ' Registration state page' , registration_states_path, class: "btn btn-info" %>
+    </div>
+    <div class="card my-3">
+      <%= link_to ' Kilometer Driven page', kilometer_drivens_path, class: "btn btn-info" %>
+    </div>
+  
+    <% if CarCost.last.nil? %>
+        <%= link_to 'You need to set FOUR  car cost condition first', car_costs_path, class: "btn btn-info" %>
+    <% else %>      
+      <div class="card my-3">
+        <%= link_to 'Car cost page', car_costs_path, class: "btn btn-info" %>
+      </div>
+    <%end%>
+  </div>
+</div>

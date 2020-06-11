@@ -1,0 +1,63 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">City</th>
+      <th scope="col">Model</th>
+      <th scope="col">Brand</th>
+      <th scope="col">Kilometer-Driven</th>
+      <th scope="col">Registration-Year</th>
+      <th scope="col">Registration-State</th>
+      <th scope="col">Variant</th>
+      <% if logged_in? && current_user.role.roles == "ADMIN"%>
+      <th scope="col">Appointment status</th>
+      <%end%>
+      <% if logged_in? && current_user.role.roles != "ADMIN" %>
+      <th scope="col">Buy</th>
+      <%end%>
+    </tr>
+  </thead>
+  <tbody>
+    <% @sellers.each do |seller| %>
+    <% if seller.purchase_status != 'Sold' %>
+          <% if !(seller.purchase_status == "cancel purchase" )  %>
+
+        <tr>
+          <td><%= seller.city.name %></td>
+          <td><%= seller.model.name %></td>
+          <td><%= seller.brand.name %></td>
+          <td><%= seller.kilometer_driven.name %></td>
+          <td><%= seller.registration_year.name %></td>
+          <td><%= seller.registration_state.name %></td>
+          <td><%= seller.variant.name %></td>
+          <% if logged_in? && current_user.role.roles == "ADMIN" %>
+            <td><%= link_to 'Change status', edit_token_path(seller) ,class: "nav-link  btn btn-info p-1 " %></td>
+          <%end%>
+          <% if logged_in? && current_user.role.roles == "BUYER" %>
+            <td> <%= link_to seller.purchase_status, toggle_status_seller_path(seller) , class: "btn btn-dark px-3" %></td>
+          <%end%>
+        </tr>
+      <% end %>
+    <% end %>
+    <% if (seller.purchase_status == "cancel purchase") and  (seller.buyer_id == current_user.id)   %>
+  <tr>
+          <td><%= seller.city.name %></td>
+          <td><%= seller.model.name %></td>
+          <td><%= seller.brand.name %></td>
+          <td><%= seller.kilometer_driven.name %></td>
+          <td><%= seller.registration_year.name %></td>
+          <td><%= seller.registration_state.name %></td>
+          <td><%= seller.variant.name %></td>
+          <% if logged_in? && current_user.role.roles == "ADMIN"%>
+            <td><%= link_to 'Change status', edit_token_path(seller) ,class: "nav-link  btn btn-info p-1 " %></td>
+          <%end%>
+          <% if logged_in? && current_user.role.roles == "BUYER"%>
+            <td> <%= link_to seller.purchase_status, toggle_status_seller_path(seller) , class: "btn btn-dark px-2" %></td>
+          <%end%>
+        </tr>
+      <% end %>
+  <% end %>
+  </tbody>
+</table>
+<div class="text-center my-3 p-2">
+  <%= link_to 'Back to home', root_path, class: "btn btn-primary rounded-pill" %>
+</div>

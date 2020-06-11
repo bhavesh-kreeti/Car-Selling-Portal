@@ -1,0 +1,43 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">City</th>
+      <th scope="col">Model</th>
+      <th scope="col">Brand</th>
+      <th scope="col">Kilometer-Driven</th>
+      <th scope="col">Registration-Year</th>
+      <th scope="col">Registration-State</th>
+      <th scope="col">Variant</th>
+      <th>Status</th>
+      <% if logged_in? &&  current_user.role.roles == "ADMIN" %>
+      <th scope="col">Appointment status</th>
+      <th scope="col">Delete Post</th>
+      <%end%>
+    </tr>
+  </thead>
+  <tbody>
+    <% @my_add.each do |seller| %>
+      <tr>
+        <td><%= seller.city.name %></td>
+        <td><%= seller.model.name %></td>
+        <td><%= seller.brand.name %></td>
+        <td><%= seller.kilometer_driven.name %></td>
+        <td><%= seller.registration_year.name %></td>
+        <td><%= seller.registration_state.name %></td>
+        <td><%= seller.variant.name %></td>
+        <td><% seller.tokens.each do |p|%>
+        <%= p.status%>
+        <%end%>
+         
+          </td>
+        <% if logged_in? &&  current_user.role.roles == "ADMIN"%>
+          <td><%= link_to 'Change status', edit_token_path(seller) ,class: "nav-link  btn btn-info p-1 " %></td>
+          <td><%= link_to 'Destroy', seller, method: :delete, data: { confirm: 'Are you sure?' },class: "nav-link  btn btn-info rounded-pill" %></td>
+        <%end%>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<div class="text-center my-3 p-2">
+  <%= link_to 'Back to home', root_path, class: "btn btn-primary rounded-pill" %>
+</div>

@@ -1,0 +1,35 @@
+<div class="container mt-5 py-4 card shadow-lg p-3 mb-5 bg-white rounded">
+<%= form_with(model: seller, local: true) do |form| %>
+  <%= render 'shared/error',obj: @seller %>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="field ">
+        <%= collection_select(:seller, :city_id, City.all, :id, :name,{prompt: 'Please select your City'},  {class: 'form-control '}) %>
+      </div>
+      <div class="field">
+        <%= collection_select(:seller, :brand_id, Brand.all, :id, :name, {prompt: 'Please select your car Brand'}, {class: 'form-control '}) %>
+      </div>
+      <div class="field">
+        <%= collection_select(:seller, :model_id, Model.all, :id, :name, {prompt: 'Please select your car Model'}, {class: 'form-control '}) %>
+      </div>
+      <div class="field">
+        <%= collection_select(:seller, :registration_year_id, RegistrationYear.all, :id, :name,  {prompt: 'Please select your car Registration Year'} , {class:'form-control '}) %>
+      </div>
+    </div>
+    <div class="col-md-6">  
+      <div class="field">
+        <%= collection_select(:seller, :registration_state_id, RegistrationState.all, :id, :name,  {prompt: 'Please select your car Registration state'}, {class: 'form-control '}) %>
+      </div>
+      <div class="field">
+        <%= collection_select(:seller, :variant_id, Variant.all, :id, :name, {prompt: 'Please select your car Variant'}, {class: 'form-control '}) %>
+      </div>
+      <div class="field">
+        <%= collection_select(:seller, :kilometer_driven_id, KilometerDriven.all, :id, :name,  {prompt: 'Please select your car Kilometer Driven'}, {class: 'form-control '}) %>
+      </div>
+    </div>
+  </div>    
+  <div class="actions text-center mt-4  ">
+    <%= form.submit 'post add', class: " shadow-sm p-3 mb-5  rounded"%>
+  </div>
+  <% end %>
+</div>

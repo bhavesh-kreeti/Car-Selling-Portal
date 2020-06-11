@@ -1,0 +1,23 @@
+
+<div class="card">
+  <div class="card-body">
+    <div class="card-header">
+      <div class="text-center bg-dark text-white display-4">Search result</div>
+    </div>
+    <div class="card-body text-center">
+      <% if @search.empty? %>
+        <h4 class="display-4 card-text">Enter a valid id</h4>  
+      <%else%>
+        <% @search.each do |search| %>
+          <% if search.user_id == current_user.id %>
+            <div class= "h2">
+              Status of your appointment is : <span class="display-4 px-3"><%= search.status.upcase %></span>
+            </div>
+          <% else %>
+            <h3 class="display-4">This ID does't belongs to you</h3>
+          <% end %>
+        <% end %>
+      <%end%>
+    </div>
+  </div>
+</div>

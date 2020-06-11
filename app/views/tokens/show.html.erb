@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col card">
+  <div class="card-body ">
+    <div class="card-header text-center"><h3 class="display-4">Your appointment no is <%= @token.id %> </h3></div>
+    <div class="card-title my-4 h3 bg-dark text-white text-center py-3"> 
+    <strong>Phoneno:</strong>
+    <%= @token.phoneno %>
+    </div>
+    <div class="card-subtitle text-center my-3">
+    <h3> Status of your add is <%= @token.status %></h3>
+    </div>
+    <div class="card-footer text-center h1">
+    <% x= @token.id%>
+      <% x = (x % 4 + 1) %>
+      <%cost=  CarCost.find(x) %>
+      <h2 class="h3">Your car condition is </h2>
+      <%= cost.condition %> <br>
+      <h2>Your car cost is</h2>
+      <%= cost.price %>
+    </div>
+    <div class="text-center my-4">
+    <%= link_to 'Back to Home', root_path, class: "btn btn-dark btn-lg rounded-pill" %>
+    </div>
+  </div>
+  </div>
+</div>

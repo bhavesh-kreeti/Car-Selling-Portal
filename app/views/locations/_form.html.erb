@@ -1,0 +1,11 @@
+<%= form_with(model: location, local: true) do |form| %>
+  <%= render 'shared/error', obj: @location %>
+  <div class="field card-body">
+    <%= form.label :address %>
+    <%= form.text_field :address , placeholder: 'Enter Branch Name' %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Create Branch" %>
+  </div>
+<% end %>
