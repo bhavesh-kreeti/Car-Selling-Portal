@@ -1,5 +1,7 @@
 class KilometerDrivensController < ApplicationController
   before_action :set_kilometer_driven, only: [ :edit, :update, :destroy]
+  before_action :require_login 
+  before_action :require_admin
 
   def index
     @kilometerdrivens = KilometerDriven.all
@@ -35,8 +37,10 @@ class KilometerDrivensController < ApplicationController
   def destroy
     @kilometerdriven.destroy
       redirect_to kilometer_drivens_url, notice: 'Kilometerdriven was successfully destroyed.' 
-    
   end
+
+
+
 
   private
     def set_kilometer_driven

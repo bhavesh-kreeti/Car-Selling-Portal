@@ -1,6 +1,8 @@
 class VariantsController < ApplicationController
   before_action :set_variant, only: [ :edit, :update, :destroy]
-  
+  before_action :require_login 
+  before_action :require_admin
+
   def index
     @variants = Variant.all
   end

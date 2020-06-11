@@ -1,5 +1,9 @@
 class SellersController < ApplicationController
   include SellersHelper
+  before_action :require_login 
+  before_action :require_admin ,only: [:approve, :reject]
+  before_action :require_buyer, except: [:create,:new]
+  before_action :require_seller, only: [:create,:new]
 
   def index
   if params[:search].present?
@@ -76,19 +80,20 @@ class SellersController < ApplicationController
   end
 
 def toggle_status
-  @seller = Seller.find(params[:id])
-if @seller.purchase_status == "purchase" 
-  @seller.purchase_status = "cancel purchase"
-  @seller.buyer_id = current_user.id
-  @seller.save
-elsif @seller.purchase_status == "cancel purchase" 
-  @seller.purchase_status = "purchase"
+    @seller = Seller.find(params[:id])
+  if @seller.purchase_status == "purchase" 
+    @seller.purchase_status = "cancel purchase"
     @seller.buyer_id = current_user.id
+    @seller.save
+  elsif @seller.purchase_status == "cancel purchase" 
+    @seller.purchase_status = "purchase"
+      @seller.buyer_id = current_user.id
 
-  @seller.save
+    @seller.save
+  end
+  redirect_to sellers_path 
 end
-redirect_to sellers_path 
-end
+
 
   private
 

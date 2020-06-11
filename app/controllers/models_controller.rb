@@ -1,5 +1,7 @@
 class ModelsController < ApplicationController
   before_action :set_model, only: [ :edit, :update, :destroy]
+  before_action :require_login 
+  before_action :require_admin
 
   def index
     @models = Model.all
@@ -37,6 +39,7 @@ class ModelsController < ApplicationController
     @model.destroy
       redirect_to models_url, notice: 'Model was successfully destroyed.'
   end
+
 
   private
     def set_model

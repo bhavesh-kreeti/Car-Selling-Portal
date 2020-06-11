@@ -1,5 +1,7 @@
 class CarCostsController < ApplicationController
   before_action :set_car_cost, only: [:edit, :update]
+  before_action :require_login 
+  before_action :require_admin, only: [:new,:create,:update,:edit]
 
   def index
     @carcosts = CarCost.all
@@ -29,6 +31,7 @@ class CarCostsController < ApplicationController
       render :edit
     end
   end
+
 
   private
     def set_car_cost

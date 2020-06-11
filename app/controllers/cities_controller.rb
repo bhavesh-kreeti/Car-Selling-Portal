@@ -1,6 +1,7 @@
 class CitiesController < ApplicationController
   before_action :set_city, only: [ :edit, :update, :destroy]
-
+  before_action :require_login 
+  before_action :require_admin
 
   def index
     @cities = City.all
@@ -36,6 +37,7 @@ class CitiesController < ApplicationController
     @city.destroy
       redirect_to cities_url, notice: 'City was successfully destroyed.'
   end
+
 
   private
     def set_city

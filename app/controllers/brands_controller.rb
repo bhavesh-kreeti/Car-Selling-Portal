@@ -1,5 +1,7 @@
 class BrandsController < ApplicationController
   before_action :set_brand, only: [:edit, :update, :destroy]
+  before_action :require_login 
+  before_action :require_admin
   def index
     @brands = Brand.all
   end
@@ -34,6 +36,7 @@ class BrandsController < ApplicationController
     @brand.destroy
       redirect_to brands_url, notice: 'Brand was successfully destroyed.' 
   end
+
 
   private
     def set_brand

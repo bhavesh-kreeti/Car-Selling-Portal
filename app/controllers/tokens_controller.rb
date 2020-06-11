@@ -1,5 +1,8 @@
 class TokensController < ApplicationController
   before_action :set_token, only: [ :edit, :update,:show ]
+  before_action :require_login 
+  before_action :require_seller
+
   include ApplicationHelper
   def index
     @mylist = current_user.tokens
@@ -57,4 +60,5 @@ class TokensController < ApplicationController
     def token_params
       params.require(:token).permit(:phoneno, :user_id,:status,:seller_id)
     end
+    
 end

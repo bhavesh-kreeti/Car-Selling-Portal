@@ -1,6 +1,8 @@
 
 class RegistrationStatesController < ApplicationController
   before_action :set_registration_state, only: [ :edit, :update, :destroy]
+  before_action :require_login 
+  before_action :require_admin
 
   def index
     @registrationstates = RegistrationState.all
@@ -38,6 +40,8 @@ class RegistrationStatesController < ApplicationController
       redirect_to registration_states_url, notice: 'RegistrationState was successfully destroyed.' 
     
   end
+
+
 
   private
     def set_registration_state

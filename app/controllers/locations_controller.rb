@@ -1,5 +1,6 @@
 class LocationsController < ApplicationController
-
+before_action :require_login
+before_action :require_seller
   def index
     @locations = Location.all.where(user_id: current_user.id)
   end
