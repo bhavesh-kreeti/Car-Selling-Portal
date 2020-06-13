@@ -1,10 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Location, type: :model do
+  subject { described_class.create(address: 'kolkata') } 
   describe "Validation" do
     context "has to be present" do
       it { should validate_presence_of(:address) }
     end
+    
   end
     context "Association" do
       context "with user" do

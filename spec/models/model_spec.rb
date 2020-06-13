@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Model, type: :model do
-	
+
+  
 	describe 'Validation' do
 		context 'validate presence of city name' do
 			it { should validate_presence_of(:name)}
@@ -12,6 +13,7 @@ RSpec.describe Model, type: :model do
 		context 'validates presence of brand id' do 
 			it { should validate_presence_of(:brand_id)}
 		end
+
 	end
 
 	describe "Association" do
