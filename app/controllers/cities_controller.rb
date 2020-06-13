@@ -16,7 +16,6 @@ class CitiesController < ApplicationController
 
   def create
     @city = City.new(city_params)
-
       if @city.save
         redirect_to cities_path notice: 'City was successfully created.' 
       else
@@ -37,7 +36,6 @@ class CitiesController < ApplicationController
     @city.destroy
       redirect_to cities_url, notice: 'City was successfully destroyed.'
   end
-
 
   private
     def set_city

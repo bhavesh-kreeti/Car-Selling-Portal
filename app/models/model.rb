@@ -1,8 +1,10 @@
 class Model < ApplicationRecord
     validates :name, presence: true
-    validates :name, uniqueness: { case_sensitive: false }
-      before_save :upcase_fields
+    validates_uniqueness_of :name
+    validates :brand_id, presence: true
+      before_save :upcase_fields , if: :name?
       belongs_to :brand
+      has_many :sellers
     def upcase_fields
       self.name.upcase!
       end

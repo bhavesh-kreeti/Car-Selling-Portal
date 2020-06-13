@@ -1,8 +1,9 @@
 class KilometerDriven < ApplicationRecord
     validates :name, presence: true
-    validates :name, uniqueness: { case_sensitive: false }
-    before_save :upcase_fields
-  
+    validates_uniqueness_of :name
+    has_many :sellers
+    before_save :upcase_fields, if: :name?
+
     def upcase_fields
       self.name.upcase!
       end

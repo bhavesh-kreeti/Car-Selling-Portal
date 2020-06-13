@@ -3,7 +3,7 @@ class Location < ApplicationRecord
     geocoded_by :address
     after_validation :geocode
     belongs_to :user
-    before_save :upcase_fields
+    before_save :upcase_fields, if: :address?
   
     def upcase_fields
         self.address.upcase!

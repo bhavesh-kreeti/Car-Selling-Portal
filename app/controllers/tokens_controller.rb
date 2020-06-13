@@ -1,7 +1,8 @@
 class TokensController < ApplicationController
   before_action :set_token, only: [ :edit, :update,:show ]
   before_action :require_login 
-  before_action :require_seller
+  before_action :require_seller, except: [:update_status]
+  before_action :require_admin ,only: [:update_status]
 
   include ApplicationHelper
   def index
