@@ -15,7 +15,6 @@ class Seller < ApplicationRecord
   validates :registration_year_id, presence: true 
   validates :model_id, presence: true
   validates :variant_id, presence: true
-  validates :buyer_id, presence: true
   validates :user_id, presence: true
 
   scope :car_model, -> car_model_id { where(model_id: car_model_id )}

@@ -14,7 +14,6 @@ RSpec.describe Seller, type: :model do
       it { should validate_presence_of(:variant_id) }
       it { should validate_presence_of(:brand_id) }
       it { should validate_presence_of(:user_id) }
-      it { should validate_presence_of(:brand_id) }
     end
 
     describe "Association" do

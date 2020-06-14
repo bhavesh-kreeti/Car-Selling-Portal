@@ -2,7 +2,7 @@ class SellersController < ApplicationController
   include SellersHelper
   before_action :require_login 
   before_action :require_admin ,only: [:approve, :reject]
-  before_action :require_buyer, except: [:create,:new]
+  before_action :require_buyer, except: [:create,:new,:approve, :reject]
   before_action :require_seller, only: [:create,:new]
 
   def index
