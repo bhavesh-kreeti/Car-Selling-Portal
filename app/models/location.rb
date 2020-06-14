@@ -5,6 +5,8 @@ class Location < ApplicationRecord
     belongs_to :user
     before_save :upcase_fields, if: :address?
   
+    private
+    
     def upcase_fields
         self.address.upcase!
     end

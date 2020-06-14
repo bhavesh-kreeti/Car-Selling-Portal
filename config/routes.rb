@@ -19,9 +19,6 @@ Rails.application.routes.draw do
   resources :cities, except: [:show]
   resources :sellers do 
               collection do
-                get :toggle_status
-                get :approve
-                get :reject
                 get 'search_city'
                 get 'search_brand'
                 get 'search_registration_year'
@@ -36,7 +33,11 @@ Rails.application.routes.draw do
                 get :reject
               end
             end
-  resources :users, except: [:new]
+  resources :users, except: [:new,:show] do
+    member do
+      get 'confirm_email'
+    end
+  end
   get '/signup', to: 'users#new'
   root to: 'pages#home'
   get '/login', to: 'sessions#new'

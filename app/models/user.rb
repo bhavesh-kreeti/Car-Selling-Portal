@@ -1,5 +1,5 @@
 class User < ApplicationRecord 
-
+    before_create :confirmation_token
     VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
     validates :email, presence: true, length: { maximum: 105 }
     validates :role_id, presence: true
@@ -11,4 +11,18 @@ class User < ApplicationRecord
     has_many :tokens
     has_many :sellers 
     belongs_to :role
+
+    def email_activate
+      self.email_confirm = true
+      self.confirm_token = nil
+      save!(:validate => false)
+  end
+
+    private
+
+    def confirmation_token
+      if self.confirm_token.blank?
+          self.confirm_token = SecureRandom.urlsafe_base64.to_s
+      end
+    end
 end

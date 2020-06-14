@@ -6,9 +6,15 @@ class SessionsController < ApplicationController
     def create 
         user = User.find_by(email: params[:session][:email].downcase)
         if(user && user.authenticate(params[:session][:password]))
-            session[:user_id] = user.id
-            redirect_to root_path 
-            flash[:notice]  ='you have successfully logged in'
+            if user.email_confirm
+              session[:user_id] = user.id
+              redirect_to root_path 
+              flash[:notice]  ='you have successfully logged in'
+            else
+              redirect_to root_path
+              flash[:notice] = 'please verify your account'
+            end
+
         else
             redirect_to login_path
              flash[:notice] = 'Email or password is not correct'

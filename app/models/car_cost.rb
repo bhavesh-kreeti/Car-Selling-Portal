@@ -7,6 +7,8 @@ class CarCost < ApplicationRecord
   
     before_save :upcase_fields, if: :condition?
   
+    private
+    
     def upcase_fields
       self.condition.upcase!
       end

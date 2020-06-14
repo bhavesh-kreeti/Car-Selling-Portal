@@ -5,6 +5,9 @@ class Model < ApplicationRecord
       before_save :upcase_fields , if: :name?
       belongs_to :brand
       has_many :sellers
+
+    private
+    
     def upcase_fields
       self.name.upcase!
       end
