@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Brand, type: :model do
 	subject { described_class.create(name: 'tata') } 
 	
-	describe "Validation" do 
+	describe ".validation" do 
 		context 'validates presence of brand name' do 
 			it { should validate_presence_of(:name) }
 		end
