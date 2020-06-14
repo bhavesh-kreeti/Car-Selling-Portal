@@ -59,8 +59,10 @@ class SellersController < ApplicationController
     @seller = Seller.find(params[:id])
     @seller.purchase_status="Sold"
     @seller.save
-    user=User.find(@seller.buyer_id).email
-    #Seller.approve_status(user)
+    buyer_user=User.find(@seller.buyer_id)
+    BuyerMailer.approve(buyer_user).deliver
+    seller_user = @seller.user
+    SellerMailer.car_sold(seller_user).deliver
     @approve= @seller.tokens
     @approve.each do |p|
       p.status = "SOLD"
@@ -74,8 +76,8 @@ class SellersController < ApplicationController
     @seller = Seller.find(params[:id])
     @seller.purchase_status="purchase"
     @seller.save
-    user=User.find(@seller.buyer_id).email
-    #Seller.reject_status(user)
+    user=User.find(@seller.buyer_id)
+    BuyerMailer.reject(user).deliver
     redirect_to update_status_tokens_path
   end
 
