@@ -1,5 +1,5 @@
 class Token < ApplicationRecord
   belongs_to :user
   belongs_to :seller
-  validates :phoneno, presence: true , length: {minimum:10, maximum:10}
+  validates :phoneno, presence: true , length: {is: 10}
 end

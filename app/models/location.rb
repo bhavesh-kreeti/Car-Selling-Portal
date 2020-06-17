@@ -1,13 +1,8 @@
 class Location < ApplicationRecord
     validates :address, presence: true
+    validates_uniqueness_of :address
     geocoded_by :address
     after_validation :geocode
     belongs_to :user
-    before_save :upcase_fields, if: :address?
   
-    private
-    
-    def upcase_fields
-        self.address.upcase!
-    end
   end

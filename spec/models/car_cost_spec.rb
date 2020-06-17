@@ -1,26 +1,45 @@
 require 'rails_helper'
 
 RSpec.describe CarCost, type: :model do
-	subject { described_class.create(price: "5000" , condition: 'fair')}
+
+let(:car_cost) { build(:car_cost) }
+let(:car_cost_duplicate) { build(:car_cost) }
 
 	describe "Validation" do
-		context " of car cost" do
-			it { should validate_presence_of(:price)}
-			it { should validate_uniqueness_of(:price).case_insensitive}
+
+		it 'condition cannot be nil'  do
+			car_cost.condition = nil
+			expect(car_cost).to_not be_valid
 		end
-		context 'of car condition' do
-			it { should validate_presence_of(:condition)}
-			it { should validate_uniqueness_of(:condition)}
+		it 'price cannot be nil' do
+			car_cost.price = nil
+			expect(car_cost).to_not be_valid
 		end
-		it 'should be valid for ' do
-			expect(subject).to be_valid  
+
+		it 'condition  should be present'  do
+			expect(car_cost).to be_valid
+		end
+
+		it 'price must be present' do
+			expect(car_cost).to be_valid
+		end
+
+		it 'price must be unique' do
+			car_cost.save
+			car_cost_duplicate.condition = 'good'
+			expect(car_cost_duplicate).to_not be_valid
+		end
+
+		it 'condition must be unique'  do
+			car_cost.save
+			expect(car_cost_duplicate).to_not be_valid
 		end
 	end
 
 	describe "Scope" do
 		it 'should do upper case before save' do
-		  expect(subject.condition).to eq('FAIR')  
+			car_cost.save
+		  expect(car_cost.condition).to eq('FAIR')  
 		end
-	  end
-
+  end
 end

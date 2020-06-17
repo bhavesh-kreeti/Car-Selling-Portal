@@ -1,17 +1,22 @@
 require 'rails_helper'
 
 RSpec.describe Brand, type: :model do
-	subject { described_class.create(name: 'tata') } 
-	
+let(:brand) { build(:brand) }	
+let(:brand_duplicate) { build(:brand) }	
+
 	describe ".validation" do 
-		context 'validates presence of brand name' do 
-			it { should validate_presence_of(:name) }
+		it 'brand name cannot be nil' do 
+			  brand.name = nil
+			  expect(brand).to_not be_valid
 		end
-		context 'validate uniqueness of brand name' do 
-			it { should validate_uniqueness_of(:name)}
+			
+		it 'brand name should be present' do 
+			expect(brand).to be_valid
 		end
-		it  'should be valid for' do
-			expect(subject).to be_valid  
+
+		it ' brand name should be unique' do
+			brand.save
+      expect(brand_duplicate.name).to_not eq(brand.name)
 		end
 	end
 
@@ -24,9 +29,11 @@ RSpec.describe Brand, type: :model do
 			it { should have_many(:models)}
 		end
 	end
+
 	describe "Scope" do
 		it 'should do upper case before save' do
-		  expect(subject.name).to eq('TATA')  
+			brand.save
+		  expect(brand.name).to eq('TATA')  
 		end
-	  end
+	 end
 end

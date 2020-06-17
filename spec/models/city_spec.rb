@@ -1,14 +1,23 @@
 require 'rails_helper'
 RSpec.describe City, type: :model do
-  subject { described_class.create(name: 'kolkata') } 
 
-  describe 'validation' do
-    it { should validate_presence_of(:name) }
+let(:city) { build(:city) } 
+let(:city_duplicate) { build(:city) }  
 
-    it { should validate_uniqueness_of(:name) }
+describe ".validation" do 
 
-     it "is valid with valid city name" do
-      expect(subject).to be_valid
+    it 'city name cannot be nil' do 
+        city.name = nil
+        expect(city).to_not be_valid
+    end
+      
+    it 'city name should be present' do 
+      expect(city.save).to eq(true)
+    end
+
+    it 'city name should be unique' do
+      city.save
+      expect(city_duplicate).to_not be_valid
     end
   end
 
@@ -18,8 +27,9 @@ RSpec.describe City, type: :model do
 
   describe "Scope" do
     it 'should do upper case before save' do
-      expect(subject.name).to eq('KOLKATA')  
+      city.save
+      expect(city.name).to eq('KOLKATA')  
     end
   end
   
-end
+end 

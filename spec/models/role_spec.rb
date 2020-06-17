@@ -1,13 +1,21 @@
 require 'rails_helper'
 
 RSpec.describe Role, type: :model do
-  subject { described_class.new(roles: "ADMIN") }
+
+	let(:role) { build(:role) }
+	let(:duplicate_role) { build(:role) }
+
   describe "Validation" do 
-		context 'validates presence of role' do 
-			it { should validate_presence_of(:roles) }
+		it 'validates presence of role' do 
+			expect(role.save).to eq(true)
 		end
-		context 'validate uniqueness of role' do 
-			it { should validate_uniqueness_of(:roles)}
+		it 'role cannot be null' do 
+			role.roles = nil
+			expect(role.save).to eq(false)
+		end
+		it 'role to be unique' do
+			role.save
+			expect(duplicate_role).to_not be_valid
 		end
 	end
 

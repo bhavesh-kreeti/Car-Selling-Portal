@@ -2,7 +2,7 @@ class Model < ApplicationRecord
     validates :name, presence: true
     validates_uniqueness_of :name
     validates :brand_id, presence: true
-      before_save :upcase_fields , if: :name?
+      after_create :upcase_fields , if: :name?
       belongs_to :brand
       has_many :sellers
 

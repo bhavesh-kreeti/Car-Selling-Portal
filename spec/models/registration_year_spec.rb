@@ -1,13 +1,20 @@
 require 'rails_helper'
 
 RSpec.describe RegistrationYear, type: :model do
-  subject { described_class.new(name: 2020) } 
+	let(:registration_year) { build(:registration_year) }
+	let(:duplicate_registration_year) {build(:registration_year) }
+
   describe "Validation" do 
-		context 'validates presence of registration year' do 
-			it { should validate_presence_of(:name) }
+		it ' presence of registration year' do 
+			expect(registration_year.save).to eq(true)
 		end
-		context 'validate uniqueness of registration year' do 
-			it { should validate_uniqueness_of(:name).case_insensitive}
+		it 'cannot be nil' do
+			registration_year.name = nil
+			expect(registration_year.save).to eq(false)
+		end
+		it 'uniqueness of registration year' do 
+			registration_year.save
+			expect(duplicate_registration_year).to_not be_valid
 		end
 	end
 

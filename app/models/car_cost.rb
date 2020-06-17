@@ -5,7 +5,7 @@ class CarCost < ApplicationRecord
     validates_uniqueness_of :condition
     validates_uniqueness_of :price
   
-    before_save :upcase_fields, if: :condition?
+    after_create :upcase_fields, if: :condition?
   
     private
     

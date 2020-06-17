@@ -1,17 +1,23 @@
 require 'rails_helper'
 
 RSpec.describe KilometerDriven, type: :model do
-	subject { described_class.create(name: '0-10000') } 
+	let(:kilometer_driven) { build(:kilometer_driven) } 
+	let(:kilometer_driven_duplicate) { build(:kilometer_driven) }  
+  
   describe "Validation" do 
-		context 'validates presence of Kilometer driven' do 
-			it { should validate_presence_of(:name) }
+		it 'Kilometer driven cannot be blank' do 
+			kilometer_driven.name = nil
+			expect(kilometer_driven).to_not be_valid
 		end
-		context 'validate uniqueness of Kilometer driven' do 
-			it { should validate_uniqueness_of(:name).case_insensitive}
+
+		it 'present of kilometer_driven ' do 
+			expect(kilometer_driven).to be_valid
 		end
-		it 'should be valid for' do
-			expect(subject).to be_valid  
-		end
+
+		it 'kilometer_driven should be unique' do
+			kilometer_driven.save
+	    expect(kilometer_driven_duplicate).to_not be_valid
+    end
 	end
 
 	describe "Association" do

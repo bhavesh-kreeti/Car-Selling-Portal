@@ -2,16 +2,24 @@ require 'rails_helper'
 
 RSpec.describe Model, type: :model do
 
+	let(:model) { build(:model) }
+	let(:model_duplicate) { build(:model) }
   
 	describe 'Validation' do
-		context 'validate presence of city name' do
-			it { should validate_presence_of(:name)}
+
+		it 'should have model name' do
+			brand = create(:brand)
+			model.brand_id = brand.id
+			expect(model).to be_valid
 		end
-		context 'validates uniqueness of model name' do
-			it { should validate_uniqueness_of(:name)}
+		
+		it 'model name cannot be nil' do
+			model.name = nil
+			expect(model.save).to eq(false)
 		end
-		context 'validates presence of brand id' do 
-			it { should validate_presence_of(:brand_id)}
+		it 'validates uniquenesss of model' do 
+			model.save
+			expect(model_duplicate).to_not be_valid
 		end
 
 	end
@@ -20,7 +28,7 @@ RSpec.describe Model, type: :model do
 		context "with seller" do
 			it {should have_many(:sellers)}
 		end
-		context 'with brand' do
+		context 'with model' do
 			it { should belong_to(:brand) }
 		end
 	end

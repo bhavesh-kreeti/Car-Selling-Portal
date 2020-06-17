@@ -3,7 +3,7 @@ class Brand < ApplicationRecord
     validates_uniqueness_of :name
     has_many :models, dependent: :delete_all
     has_many :sellers
-    before_save :upcase_fields, if: :name?
+    after_create :upcase_fields, if: :name?
   
     private
     

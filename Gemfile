@@ -60,3 +60,4 @@ gem 'jquery-rails', '~> 4.3', '>= 4.3.1'
 gem 'mail', '~> 2.7', '>= 2.7.1'
 gem 'geocoder', '~> 1.6', '>= 1.6.2'
 gem 'hirb'
+  gem "factory_bot_rails"

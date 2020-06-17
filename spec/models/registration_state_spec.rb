@@ -1,13 +1,20 @@
 require 'rails_helper'
 
 RSpec.describe RegistrationState, type: :model do
-  subject { described_class.new(name: "west bengal") } 
+	let(:registration_state) { build(:registration_state) }
+	let(:duplicate_registration_state) { build(:registration_state) }
+
   describe "Validation" do 
-		context 'validates presence of registration state' do 
-			it { should validate_presence_of(:name) }
+		it ' presence of registration state' do 
+			expect(registration_state.save).to eq(true)
 		end
-		context 'validate uniqueness of registration state' do 
-			it { should validate_uniqueness_of(:name)}
+		it ' registration state cannot be nil' do 
+			registration_state.name = nil
+			expect(registration_state.save).to eq(false)
+		end
+		it 'registration state should be unique' do 
+			registration_state.save
+			expect(duplicate_registration_state).to_not be_valid
 		end
 	end
 
