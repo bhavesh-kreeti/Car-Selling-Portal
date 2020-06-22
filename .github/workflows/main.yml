@@ -20,11 +20,7 @@ jobs:
     services:
       db:
         image: postgres:latest
-<<<<<<< HEAD:.github/workflows/main.yml
-        ports:['5432:5432]
-=======
-        ports: ['5432:5432']
->>>>>>> 5532fd40267516e31e750487f46961663c79a63f:.github/workflows/main.yml
+        ports: ['3000:3000']
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -42,7 +38,7 @@ jobs:
         cmd: install  
     -name: Build and run test
      env:
-          DATABASE_URL: postgres://postgres:@localhost:5432/test
+          DATABASE_URL: postgres://postgres:@localhost:3000/test
           RAILS_ENV: test
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
       run:
