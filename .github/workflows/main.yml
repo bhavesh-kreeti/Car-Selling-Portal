@@ -1,55 +1,50 @@
-name: Ruby
-on: [push, pull_request]
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+# This workflow will download a prebuilt Ruby version, install dependencies and run tests with Rake
+# For more information see: https://github.com/marketplace/actions/setup-ruby-jruby-and-truffleruby
+
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
 jobs:
   test:
+
     runs-on: ubuntu-latest
     services:
       db:
         image: postgres:latest
-        env:
-          MYSQL_ROOT_PASSWORD: mnbvcxz1
-        ports:
-          - 3306
+        ports:['5432:5432]
         options: >-
-          --health-interval=10s 
-          --health-timeout=5s 
-          --health-retries=3
-    steps:  
-      - name: Setup ubuntu
-        run: |
-          sudo apt-get install build-essential libcurl4-openssl-dev
-          sudo apt-get install libz-dev libiconv-hook1 libiconv-hook-dev
-          sudo apt-get update
-      - name: Set up Ruby
-        uses: actions/setup-ruby@v1
-        with:
-          ruby-version: 2.6.x
-
-      - name: Checkout Code
-        uses: actions/checkout@v1
-        with:
-          fetch-depth: 1
-
-      - name: Verify MySQL connection from host
-        run: |
-          sudo apt-get install -y mysql-client libmysqlclient-dev
-          sudo service mysql start
-          sudo mysql --host localhost --port ${{ job.services.mysql.ports[3306] }} -uroot -proot -e "SHOW GRANTS FOR 'root'@'localhost'"
-      
-      - name: Bundle Install and Create DB
-        env:
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+           
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup Ruby
+      uses: actions/setup-ruby@v1
+      with:
+        ruby-version: 2.6.5
+    - uses: borales/actions-yarn@v2.0.0
+      with:
+        cmd: install  
+    -name: Build and run test
+     env:
+          DATABASE_URL: postgres://postgres:@localhost:5432/test
           RAILS_ENV: test
-          DB_PASSWORD: root 
-          DB_PORT: ${{ job.services.mysql.ports[3306] }}
-        run: |
-          gem install bundler --version 2.1.4
-          bundle install --jobs 4 --retry 3
-          bundle exec rails db:prepare --trace
-          
-      - name: Run tests
-        env:
-          DB_PASSWORD: user
-          DB_PORT: ${{ job.services.mysql.ports[3306] }}
-          REDIS_PORT: ${{ job.services.redis.ports[6379] }}
-          RAILS_ENV: test
-        run: bundle exec rspec
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+      run:
+        sudo apt-get -yqq install libpq-dev
+        gem install bundler
+        bundle install --jobs 4 --retry 3
+        bundle exec rails db:prepare
+        bundle exec rails test 
+
