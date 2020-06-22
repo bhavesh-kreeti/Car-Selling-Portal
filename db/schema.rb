@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 2020_06_14_100233) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id"
+    t.index ["address"], name: "index_locations_on_address"
     t.index ["user_id"], name: "index_locations_on_user_id"
   end
 
@@ -115,6 +116,7 @@ ActiveRecord::Schema.define(version: 2020_06_14_100233) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id"
     t.bigint "seller_id"
+    t.index ["phoneno"], name: "index_tokens_on_phoneno"
     t.index ["seller_id"], name: "index_tokens_on_seller_id"
     t.index ["user_id"], name: "index_tokens_on_user_id"
   end
