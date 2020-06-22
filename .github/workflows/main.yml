@@ -37,7 +37,7 @@ jobs:
       with:
         cmd: install  
     -name: Build and run test
-       env:
+     env:
           DATABASE_URL: postgres://postgres:@localhost:5432/test
           RAILS_ENV: test
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
