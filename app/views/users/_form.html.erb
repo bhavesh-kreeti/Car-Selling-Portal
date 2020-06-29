@@ -21,7 +21,8 @@
     <%= collection_select(:user, :role_id, Role.all, :id, :roles,{prompt: 'Please select role'},  {class: 'form-control '}) %>
   </div>
   <%end%>
-  <% if logged_in? %>
+
+  <% if logged_in? && current_user.role.roles!= "ADMIN" && current_user.role.roles!= "BUYER"   %>
   <div class="field py-2 pl-5 fadeIn third d-flex flex-column" id="password">
     <%= form.label :Phoneno %>
     <%= form.text_field :phoneno %>
