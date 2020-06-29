@@ -14,7 +14,7 @@ RSpec.describe RegistrationState, type: :model do
 		end
 		it 'registration state should be unique' do 
 			registration_state.save
-			expect(duplicate_registration_state).to_not be_valid
+			expect(duplicate_registration_state.save).to eq(false)
 		end
 	end
 

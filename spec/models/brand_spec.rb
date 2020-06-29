@@ -6,8 +6,8 @@ let(:brand_duplicate) { build(:brand) }
 
 	describe ".validation" do 
 		it 'brand name cannot be nil' do 
-			  brand.name = nil
-			  expect(brand).to_not be_valid
+      brand.name = nil
+      expect(brand).to_not be_valid
 		end
 			
 		it 'brand name should be present' do 
@@ -16,7 +16,7 @@ let(:brand_duplicate) { build(:brand) }
 
 		it ' brand name should be unique' do
 			brand.save
-      expect(brand_duplicate.name).to_not eq(brand.name)
+      expect(brand_duplicate.save).to eq(false)
 		end
 	end
 

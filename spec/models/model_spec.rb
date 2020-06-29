@@ -19,7 +19,7 @@ RSpec.describe Model, type: :model do
 		end
 		it 'validates uniquenesss of model' do 
 			model.save
-			expect(model_duplicate).to_not be_valid
+			expect(model_duplicate.save).to eq(false)
 		end
 
 	end

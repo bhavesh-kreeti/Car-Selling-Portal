@@ -20,7 +20,7 @@ let(:location_duplicate) { build(:location) }
 
     it 'address sholud be unique' do
       location.save
-      expect(location_duplicate).to_not be_valid
+      expect(location_duplicate.save).to eq(false)
     end
 
   end

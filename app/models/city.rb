@@ -1,8 +1,7 @@
 class City < ApplicationRecord
-    validates :name, presence: true
-    validates_uniqueness_of :name
-	 has_many :sellers
-    after_create :upcase_fields, if: :name?
+  validates :name, presence: true, uniqueness: { case_sensitive: false }
+  has_many :sellers
+    before_save :upcase_fields, if: :name?
   
     private
     

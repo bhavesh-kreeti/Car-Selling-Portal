@@ -15,7 +15,7 @@ RSpec.describe Role, type: :model do
 		end
 		it 'role to be unique' do
 			role.save
-			expect(duplicate_role).to_not be_valid
+			expect(duplicate_role.save).to eq(false)
 		end
 	end
 

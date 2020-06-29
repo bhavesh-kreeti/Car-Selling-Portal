@@ -17,7 +17,7 @@ describe ".validation" do
 
     it 'city name should be unique' do
       city.save
-      expect(city_duplicate).to_not be_valid
+      expect(city_duplicate.save).to eq(false)
     end
   end
 

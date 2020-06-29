@@ -1,11 +1,11 @@
 
 class CarCost < ApplicationRecord
-    validates :condition, presence: true
+    validates :condition, presence: true , uniqueness: { case_sensitive: false }
+
     validates :price, presence: true
-    validates_uniqueness_of :condition
     validates_uniqueness_of :price
   
-    after_create :upcase_fields, if: :condition?
+    before_save :upcase_fields, if: :condition?
   
     private
     

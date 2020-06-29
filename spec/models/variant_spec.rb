@@ -19,7 +19,7 @@ describe ".validation" do
 
     it 'variant name should be unique' do
       variant.save
-      expect(variant_duplicate).to_not be_valid
+      expect(variant_duplicate.save).to eq(false)
     end
   end
 

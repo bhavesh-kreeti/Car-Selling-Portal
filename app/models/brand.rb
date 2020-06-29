@@ -1,9 +1,8 @@
 class Brand < ApplicationRecord
-    validates :name, presence: true
-    validates_uniqueness_of :name
+    validates :name, presence: true, uniqueness: { case_sensitive: false }
     has_many :models, dependent: :delete_all
     has_many :sellers
-    after_create :upcase_fields, if: :name?
+    before_save :upcase_fields, if: :name?
   
     private
     

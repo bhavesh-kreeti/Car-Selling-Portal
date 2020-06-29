@@ -26,8 +26,7 @@ let(:car_cost_duplicate) { build(:car_cost) }
 
 		it 'price must be unique' do
 			car_cost.save
-			car_cost_duplicate.condition = 'good'
-			expect(car_cost_duplicate).to_not be_valid
+			expect(car_cost_duplicate.save).to eq(false)
 		end
 
 		it 'condition must be unique'  do
