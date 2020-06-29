@@ -18,6 +18,12 @@ class User < ApplicationRecord
 
     private
 
+    def self.update_phoneno(phone_no,email)
+      user = User.where(email: email)
+      token = Token.where(user_id: user)
+      token.update(phoneno: phone_no)
+    end
+    
     def confirmation_token
       if self.confirm_token.blank?
         self.confirm_token = SecureRandom.urlsafe_base64.to_s
