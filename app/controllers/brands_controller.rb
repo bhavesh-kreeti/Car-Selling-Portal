@@ -16,7 +16,6 @@ class BrandsController < ApplicationController
 
   def create
     @brand = Brand.new(brand_params)
-
       if @brand.save
         redirect_to brands_path, notice: 'Brand was successfully created.'
       else

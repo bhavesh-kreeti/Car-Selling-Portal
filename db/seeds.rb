@@ -5,3 +5,6 @@ end
 Role.create(roles:"ADMIN")
 Role.create(roles:"BUYER")
 Role.create(roles:"SELLER")
+50.times do |user| 
+	Role.first.users.create(email: "a@#{user}a.com", password:"111111")
+end

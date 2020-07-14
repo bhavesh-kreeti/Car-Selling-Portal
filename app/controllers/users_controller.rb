@@ -42,7 +42,6 @@ end
 
   def update
       if @user.update(user_params)
-        
         new_phoneno = params[:user][:phoneno]
         User.update_phoneno(new_phoneno,user_params[:email])
         redirect_to root_path, notice: 'User was successfully updated.' 

@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
 
         else
             redirect_to login_path
-             flash[:notice] = 'Email or password is not correct'
+             flash[:error] = 'Email or password is not correct'
         end
 
     end

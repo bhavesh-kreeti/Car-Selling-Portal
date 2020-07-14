@@ -1,23 +1,7 @@
 <% if obj.errors.any? %>
-<div class="">
-  <div class="container">
-    <div class="row">
-      <div class="col">
-        <div class=" card bg-danger">
-          <div class=card-header>
-            <h2 class="card-title text-white">
-              <%= pluralize(obj.errors.count, "error") %></h2>
-                <div class="card-body">
-                  <ul>
-                    <% obj.errors.full_messages.each do |msg|%>
-                    <li class="text-white"><%= msg %></li>
-                    <% end %>
-                  </ul>
-                </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+  <script type="text/javascript">
+    <% obj.errors.full_messages.each do |value| %>
+      toastr.error('<%= value %>')
+    <% end %>
+  </script>
 <% end %>

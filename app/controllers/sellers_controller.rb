@@ -32,7 +32,7 @@ class SellersController < ApplicationController
   def search_registration_year
   @sellers = Seller.car_reg_year( params[:registration_year_id])
   end
-  
+
   def search_kilometer_driven
   @sellers = Seller.car_kilometer_driven( params[:kilometer_driven_id])
   end
@@ -47,9 +47,9 @@ class SellersController < ApplicationController
   
   def create
 	@seller = Seller.new(seller_params)
-	@seller.user_id = current_user.id
+  @seller.user_id = current_user.id
     if @seller.save
-    redirect_to new_token_path, notice: 'Add was sucessfully posted.' 
+      redirect_to new_token_path, notice: 'Add was sucessfully posted.' 
     else
     render :new
     end
