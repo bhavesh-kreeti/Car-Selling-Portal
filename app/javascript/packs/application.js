@@ -3,6 +3,9 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 import 'bootstrap'
+import flatpickr from "flatpickr"
+import "flatpickr/dist/flatpickr.min.css"
+flatpickr(".datepicker", {})
 global.toastr = require("toastr")
 require("@rails/ujs").start()
 require("turbolinks").start()

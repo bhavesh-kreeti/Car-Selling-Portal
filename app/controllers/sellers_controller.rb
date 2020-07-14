@@ -1,9 +1,9 @@
 class SellersController < ApplicationController
   include SellersHelper
   before_action :require_login 
-  before_action :require_admin ,only: [:approve, :reject]
+  before_action :require_admin ,only: [:approve, :reject],except: [:approve, :reject]
   before_action :require_buyer, except: [:create,:new,:approve, :reject]
-  before_action :require_seller, only: [:create,:new]
+  before_action :require_seller, only: [:create,:new,:approve, :reject]
 
   def index
   if params[:search].present?

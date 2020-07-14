@@ -25,4 +25,5 @@ class Seller < ApplicationRecord
   scope :car_variant, -> car_variant_id { where(variant_id: car_variant_id )}
   scope :car_reg_state, -> car_reg_state_id { where(registration_state_id:  car_reg_state_id )}
   
+ 
 end

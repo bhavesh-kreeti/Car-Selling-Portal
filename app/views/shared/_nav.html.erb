@@ -33,13 +33,16 @@
     </ul> 
       <div class=" d-flex mx-3">
       <% if logged_in?%>
-          <%= link_to 'Logout',logout_path, class: 'nav-link btn btn-primary rounded-pill',method: :delete %>
+          <%= link_to 'Logout',logout_path, class: 'nav-link btn btn-outline-danger rounded-pill',method: :delete %>
         <% else %>
           <%= link_to 'Sign up',signup_path, class: 'nav-link btn btn-primary rounded-pill mx-3' %>
           <%= link_to 'Login',login_path, class: 'nav-link btn btn-light ' %>
         <%end%>
-         <% if logged_in? &&  current_user.role.roles == "ADMIN" %> 
-           <%= link_to 'Update status', update_status_tokens_path, class: 'nav-link btn btn-success rounded-pill ml-3' %>
+         <% if logged_in? &&  current_user.role.roles == "SELLER" %> 
+           <%= link_to 'Buyer status', update_status_tokens_path, class: 'nav-link btn btn-outline-success rounded-pill ml-3' %>
+        <%end%>
+        <% if logged_in? &&  current_user.role.roles == "ADMIN" %> 
+           <%= link_to 'Update appointment', approve_status_path, class: 'nav-link btn btn-outline-secondary rounded-pill ml-3' %>
         <%end%>
       </div> 
     </div>

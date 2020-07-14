@@ -1,11 +1,9 @@
 <h1>Carcosts</h1>
 
 
-<% if CarCost.count < 4  %>
-  <% count = 4-CarCost.count %>
-  <h3>You need to make <%= count %> more condition</h3>
+
   <%= link_to 'New Car Cost', new_car_cost_path, class: "btn btn-info my-4" %>
-  <% end %>
+
   <table class="table">
     <thead class="thead-dark">
     <tr>

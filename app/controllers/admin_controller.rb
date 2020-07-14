@@ -6,6 +6,10 @@ class AdminController < ApplicationController
   
   end
 
+  def approve_appointment
+    @sellers = Seller.all.includes(:tokens)
+  end
+
   def require_login
     if !session[:user_id]
       flash[:notice] = "YOU MUST LOGIN IN FIRST"

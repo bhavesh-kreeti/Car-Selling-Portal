@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   end
   get 'status_search' ,  to:'tokens#status_search'
   get 'admin/admin'
+  get 'approve_status', to: 'admin#approve_appointment'
   resources :models, except: [:show]
   resources :kilometer_drivens, except: [:show]
   resources :variants, except: [:show]

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_14_100233) do
+ActiveRecord::Schema.define(version: 2020_07_14_191306) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -116,6 +116,9 @@ ActiveRecord::Schema.define(version: 2020_06_14_100233) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id"
     t.bigint "seller_id"
+    t.datetime "appointment_date"
+    t.bigint "car_cost_id"
+    t.index ["car_cost_id"], name: "index_tokens_on_car_cost_id"
     t.index ["phoneno"], name: "index_tokens_on_phoneno"
     t.index ["seller_id"], name: "index_tokens_on_seller_id"
     t.index ["user_id"], name: "index_tokens_on_user_id"
@@ -150,6 +153,7 @@ ActiveRecord::Schema.define(version: 2020_06_14_100233) do
   add_foreign_key "sellers", "registration_years"
   add_foreign_key "sellers", "users"
   add_foreign_key "sellers", "variants"
+  add_foreign_key "tokens", "car_costs"
   add_foreign_key "tokens", "sellers"
   add_foreign_key "tokens", "users"
   add_foreign_key "users", "roles"
