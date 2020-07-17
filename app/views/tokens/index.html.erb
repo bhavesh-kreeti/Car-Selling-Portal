@@ -11,27 +11,19 @@
     <h1>You dont have any appointment. Why don't you create a new one</h1> 
   <% else %> 
   <thead class="thead-dark">
-    <tr>
+    <tr >
       <th scope="col">Token no</th>
       <th scope="col">Phone no</th>
-      <th scope="col">Created </th>
       <th scope="col">Status</th>
       <% if  current_user.role.roles == "ADMIN" %>
         <th>Update Status</th>
       <% end %>
     </tr>
   </thead>
-  <tbody>
-    <% if  current_user.role.roles == "SELLER" %> 
+  <tbody id="message">
       <% @mylist.each do |list| %>
-        <tr>
-          <td> <%= list.id %> </td>
-          <td>  <%= list.phoneno %></td>
-          <td>  <%= time_ago_in_words(list.created_at) %></td>
-          <td>  <%= list.status.upcase %></td>
-        </tr> 
-      <% end %>
-      <%end%>
+          <%= render 'message', list: list %>
+      <% end %> 
     </tbody>
     <% end %>
   </table>

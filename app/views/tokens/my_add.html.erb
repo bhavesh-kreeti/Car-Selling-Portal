@@ -14,23 +14,8 @@
     </tr>
   </thead>
   <tbody>
-    <% @my_add.each do |seller| %>
-      <tr>
-        <td><%= seller.city.name %></td>
-        <td><%= seller.model.name %></td>
-        <td><%= seller.brand.name %></td>
-        <td><%= seller.kilometer_driven.name %></td>
-        <td><%= seller.registration_year.name %></td>
-        <td><%= seller.registration_state.name %></td>
-        <td><%= seller.variant.name %></td>
-        <%  token = seller.tokens  %>
-        <td><%= token.last.status  %></td>
-        <td><%= token.last.car_cost.condition %></td>
-        <td><%= token.last.car_cost.price  %></td>
-        <td> <%= link_to 'Create new appointment', new_token_path, class: "btn btn-primary" if token.last.status != "APPROVE" and token.last.status != "SOLD" %> </td>
+      <%= render 'posts/post', my_post: @post %>
 
-      </tr>
-    <% end %>
   </tbody>
 </table>
 <div class="text-center my-3 p-2">

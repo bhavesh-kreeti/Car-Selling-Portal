@@ -1,9 +1,9 @@
 class SellersController < ApplicationController
   include SellersHelper
   before_action :require_login 
-  before_action :require_admin ,only: [:approve, :reject],except: [:approve, :reject]
-  before_action :require_buyer, except: [:create,:new,:approve, :reject]
-  before_action :require_seller, only: [:create,:new,:approve, :reject]
+  before_action :require_admin ,only: [:approve, :reject],except: [:approve, :reject,:update_status]
+  before_action :require_buyer, except: [:create,:new,:approve, :reject,:update_status]
+  before_action :require_seller, only: [:create,:new,:approve, :reject,:update_status]
 
   def index
   if params[:search].present?
@@ -89,12 +89,17 @@ def toggle_status
     @seller.save
   elsif @seller.purchase_status == "cancel purchase" 
     @seller.purchase_status = "purchase"
-      @seller.buyer_id = current_user.id
+    @seller.buyer_id = current_user.id
 
     @seller.save
   end
   redirect_to sellers_path 
 end
+
+  def update_status
+    @updates = Seller.all.where(purchase_status:"cancel purchase", user_id: current_user.id)
+  end
+
 
 
   private

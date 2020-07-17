@@ -1,0 +1,27 @@
+<% if @updates.empty? %>
+  <h2>Don't have any status to be updated</h2>
+<% else %>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">City</th>
+        <th scope="col">Model</th>
+        <th scope="col">Brand</th>
+        <th scope="col">Kilometer-Driven</th>
+        <th scope="col">Registration-Year</th>
+        <th scope="col">Registration-State</th>
+        <th scope="col">Variant</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @updates.each do |seller| %>
+      <div id="status" data-user-id ="<%= current_user.id %>" >
+        <%= render 'sellers/update' ,seller: seller %>
+      </div>
+      <% end %>
+    </tbody>
+  </table>
+  <div class="text-center my-3 p-2">
+    <%= link_to 'Back to home', root_path, class: "btn btn-primary rounded-pill" %>
+  </div>
+<% end %>

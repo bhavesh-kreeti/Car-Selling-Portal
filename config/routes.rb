@@ -3,7 +3,6 @@ Rails.application.routes.draw do
   resources :car_costs, except: [:show,:destroy]
   resources :tokens do 
       collection do
-        get 'update_status'
         get 'my_add'
       end
   end
@@ -27,6 +26,7 @@ Rails.application.routes.draw do
                 get 'search_registration_state'
                 get 'search_kilometer_driven'
                 get 'search_model'
+                get 'update_status'
               end
               member do
                 get :toggle_status
@@ -44,5 +44,6 @@ Rails.application.routes.draw do
   get '/login', to: 'sessions#new'
   delete '/logout', to: 'sessions#destroy'
   post '/login', to: 'sessions#create'
+  mount ActionCable.server => '/cable'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

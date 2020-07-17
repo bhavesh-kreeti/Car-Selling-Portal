@@ -39,7 +39,7 @@
           <%= link_to 'Login',login_path, class: 'nav-link btn btn-light ' %>
         <%end%>
          <% if logged_in? &&  current_user.role.roles == "SELLER" %> 
-           <%= link_to 'Buyer status', update_status_tokens_path, class: 'nav-link btn btn-outline-success rounded-pill ml-3' %>
+           <%= link_to 'Buyer status', update_status_sellers_path, class: 'nav-link btn btn-outline-success rounded-pill ml-3' %>
         <%end%>
         <% if logged_in? &&  current_user.role.roles == "ADMIN" %> 
            <%= link_to 'Update appointment', approve_status_path, class: 'nav-link btn btn-outline-secondary rounded-pill ml-3' %>

@@ -1,7 +1,7 @@
 class TokensController < ApplicationController
   before_action :set_token, only: [ :edit, :update,:show ]
   before_action :require_login 
-  before_action :require_seller, only: [:new,:create,:my_add,:index,:status_search,:update_status] 
+  before_action :require_seller, only: [:new,:create,:my_add,:index,:status_search] 
   before_action :require_admin ,only: [:edit,:update]
 
   include ApplicationHelper
@@ -11,7 +11,7 @@ class TokensController < ApplicationController
   end
 
   def my_add
-    @my_add = my_post
+    @post = my_post
   end
 
   def new
@@ -19,6 +19,8 @@ class TokensController < ApplicationController
   end
 
   def show
+    flash[:notice] = "status updated successfully"
+    redirect_to update_status_sellers_path
      
   end
 
@@ -40,8 +42,10 @@ class TokensController < ApplicationController
   def update
     
     if @token.update(token_params)
+       flash[:notice] = 'Status of the post changed.'
       AdminMailer.admin_mail(@token.user.email,@token.status ).deliver
-      redirect_to approve_status_path, notice: 'Status of post changed'
+        ActionCable.server.broadcast "admin_approval_channel", my_post: render_to_string(partial: 'mylist',locals: { list: @token }), token_id: @token.id
+      redirect_to root_path
     else
       render :edit
     end
@@ -51,9 +55,6 @@ class TokensController < ApplicationController
     @search = Token.all.where(id: params[:q])
   end
   
-  def update_status
-    @update= Seller.all.where(purchase_status:"cancel purchase", user_id: current_user.id)
-  end
 
   private
     def set_token
@@ -63,5 +64,8 @@ class TokensController < ApplicationController
     def token_params
       params.require(:token).permit(:phoneno, :user_id,:status,:seller_id,:appointment_date,:car_cost_id)
     end
-    
+
+    def post_render(post)
+      render(partial: 'mylist',locals: { list: post } )
+    end
 end

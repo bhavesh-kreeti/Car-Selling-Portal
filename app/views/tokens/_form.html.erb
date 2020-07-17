@@ -1,5 +1,5 @@
 <div class="container">
-  <%= form_with(model: token, local: true) do |form| %>
+  <%= form_with(model: token, local: true,remote: true) do |form| %>
     <%= render 'shared/error' , obj: @token %>
     <div class="d-flex flex-column align-items-center ">
     <% if current_user.role.roles != "ADMIN" %>
@@ -8,11 +8,13 @@
         <%= form.text_field :phoneno , class: "form-control" %>
       </div>
        <div class="field text-center text-dark my-2">
-        <%= form.date_select :appointment_date, :label => "When does this project begin?", 'data-behaviour' => 'datepicker', order: [:day, :month, :year], class: "datepicker" %>
+       <%= form.label  "Schedule appointment on"%> <br>
+        <%= form.date_select :appointment_date,  'data-behaviour' => 'datepicker', order: [:day, :month, :year], class: "datepicker" %>
       </div>
     <% end %>
       <% if logged_in? && current_user.role.roles == "ADMIN" %>
      <div class="field">
+        <h2> Select Car condition </h2>
         <%= collection_select(:token, :car_cost_id, CarCost.all, :id, :condition,  {prompt: 'Please select car condition'} , {class:'form-control '}) %>
       </div>
         <div class="field text-center">

@@ -1,0 +1,11 @@
+<tr>
+  <td><%= seller.city.name %></td>
+  <td><%= seller.model.name %></td>
+  <td><%= seller.brand.name %></td>
+  <td><%= seller.kilometer_driven.name %></td>
+  <td><%= seller.registration_year.name %></td>
+  <td><%= seller.registration_state.name %></td>
+  <td><%= seller.variant.name %></td>
+  <td><%= link_to 'Approve', approve_seller_path(seller) ,class: "nav-link  btn btn-warning p-1 btn-lg" %></td>
+  <td><%= link_to 'Reject', reject_seller_path(seller) ,class: "nav-link  btn btn-danger p-1 btn-lg" %></td>
+</tr>
