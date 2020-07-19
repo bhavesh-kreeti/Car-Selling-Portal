@@ -1,9 +1,10 @@
 class SellersController < ApplicationController
   include SellersHelper
   before_action :require_login 
-  before_action :require_admin ,only: [:approve, :reject],except: [:approve, :reject,:update_status]
-  before_action :require_buyer, except: [:create,:new,:approve, :reject,:update_status]
-  before_action :require_seller, only: [:create,:new,:approve, :reject,:update_status]
+  before_action :require_admin ,only: [:approve, :reject],except: [:approve, :reject,:update_status,:my_add]
+  before_action :require_buyer, except: [:create,:new,:approve, :reject,:update_status,:my_add]
+  before_action :require_seller, only: [:create,:new,:approve, :reject,:update_status,:my_add]
+  include ApplicationHelper
 
   def index
   if params[:search].present?
@@ -68,17 +69,17 @@ class SellersController < ApplicationController
       p.status = "SOLD"
       p.save
     end
-    redirect_to update_status_tokens_path
+    redirect_to update_status_sellers_path
   end
 
 
   def reject
-    @seller = Seller.find(params[:id])
+    @seller = Seller.find(params[:id]) 
     @seller.purchase_status="purchase"
     @seller.save
     user=User.find(@seller.buyer_id)
     BuyerMailer.reject(user).deliver
-    redirect_to update_status_tokens_path
+    redirect_to update_status_sellers_path
   end
 
 def toggle_status
@@ -86,11 +87,12 @@ def toggle_status
   if @seller.purchase_status == "purchase" 
     @seller.purchase_status = "cancel purchase"
     @seller.buyer_id = current_user.id
+        ActionCable.server.broadcast "buyer_purchase_channel", purchase: render_to_string(partial: 'sellers/update',locals: { seller: @seller }), buyer_id: @seller.id, user_id: @seller.user.id
     @seller.save
   elsif @seller.purchase_status == "cancel purchase" 
     @seller.purchase_status = "purchase"
     @seller.buyer_id = current_user.id
-
+      ActionCable.server.broadcast "buyer_cancel_purchase_channel", buyer_id: @seller.id
     @seller.save
   end
   redirect_to sellers_path 
@@ -100,6 +102,9 @@ end
     @updates = Seller.all.where(purchase_status:"cancel purchase", user_id: current_user.id)
   end
 
+def my_add
+  @post = my_post
+end
 
 
   private

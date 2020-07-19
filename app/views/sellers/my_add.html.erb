@@ -1,0 +1,25 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">City</th>
+      <th scope="col">Model</th>
+      <th scope="col">Brand</th>
+      <th scope="col">Kilometer-Driven</th>
+      <th scope="col">Registration-Year</th>
+      <th scope="col">Registration-State</th>
+      <th scope="col">Variant</th>
+      <th scope="col">Status</th>
+      <th scope="col"> Car Condition</th> 
+      <th scope="col">Car Cost</th>
+    </tr>
+  </thead>
+  <tbody id="add-post">
+    <% @post.each do |seller| %>
+      <%= render 'posts/post', seller: seller %>
+    <% end %> 
+
+  </tbody>
+</table>
+<div class="text-center my-3 p-2">
+  <%= link_to 'Back to home', root_path, class: "btn btn-primary rounded-pill" %>
+</div>

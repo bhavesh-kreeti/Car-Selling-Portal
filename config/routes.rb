@@ -1,11 +1,7 @@
 Rails.application.routes.draw do
   resources :locations, except: [:show,:edit,:update,:destroy]
   resources :car_costs, except: [:show,:destroy]
-  resources :tokens do 
-      collection do
-        get 'my_add'
-      end
-  end
+  resources :tokens 
   get 'status_search' ,  to:'tokens#status_search'
   get 'admin/admin'
   get 'approve_status', to: 'admin#approve_appointment'
@@ -27,6 +23,8 @@ Rails.application.routes.draw do
                 get 'search_kilometer_driven'
                 get 'search_model'
                 get 'update_status'
+                get 'my_add'
+
               end
               member do
                 get :toggle_status

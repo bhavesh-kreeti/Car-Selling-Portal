@@ -43,8 +43,10 @@ class TokensController < ApplicationController
     
     if @token.update(token_params)
        flash[:notice] = 'Status of the post changed.'
+       @my_add= @token.seller
       AdminMailer.admin_mail(@token.user.email,@token.status ).deliver
         ActionCable.server.broadcast "admin_approval_channel", my_post: render_to_string(partial: 'mylist',locals: { list: @token }), token_id: @token.id
+        ActionCable.server.broadcast "my_post_channel", my_add: render_to_string(partial: 'posts/post',locals: { seller: @my_add }), seller_id: @my_add.id
       redirect_to root_path
     else
       render :edit
