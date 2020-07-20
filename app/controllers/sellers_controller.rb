@@ -10,7 +10,7 @@ class SellersController < ApplicationController
       query = params[:search]
       @sellers =   Seller.search(query)
     else
-      @sellers = Seller.all.includes(:city,:model,:kilometer_driven,:brand,:variant,:registration_state,:registration_year).order('created_at desc')
+      @sellers = Seller.search("*")
     end
   end 
 
