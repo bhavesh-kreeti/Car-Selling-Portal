@@ -1,17 +1,17 @@
 class SellersController < ApplicationController
-  include SellersHelper
   before_action :require_login 
   before_action :require_admin ,only: [:approve, :reject],except: [:approve, :reject,:update_status,:my_add]
   before_action :require_buyer, except: [:create,:new,:approve, :reject,:update_status,:my_add]
   before_action :require_seller, only: [:create,:new,:approve, :reject,:update_status,:my_add]
-  include ApplicationHelper
+   include ApplicationHelper
 
   def index
-  if params[:search].present?
-  @sellers =   search(params[:search])
-  else
-  @sellers = Seller.all
-  end
+    if params[:search].present?
+      query = params[:search]
+      @sellers =   Seller.search(query)
+    else
+      @sellers = Seller.all.includes(:city,:model,:kilometer_driven,:brand,:variant,:registration_state,:registration_year).order('created_at desc')
+    end
   end 
 
   def new
@@ -47,10 +47,10 @@ class SellersController < ApplicationController
   end
   
   def create
-	@seller = Seller.new(seller_params)
+  @seller = Seller.new(seller_params)
   @seller.user_id = current_user.id
     if @seller.save
-      redirect_to new_token_path, notice: 'Add was sucessfully posted.' 
+      redirect_to new_token_path, notice: 'Generate appointment.' 
     else
     render :new
     end
@@ -87,7 +87,7 @@ def toggle_status
   if @seller.purchase_status == "purchase" 
     @seller.purchase_status = "cancel purchase"
     @seller.buyer_id = current_user.id
-        ActionCable.server.broadcast "buyer_purchase_channel", purchase: render_to_string(partial: 'sellers/update',locals: { seller: @seller }), buyer_id: @seller.id, user_id: @seller.user.id
+      ActionCable.server.broadcast "buyer_purchase_channel", purchase: render_to_string(partial: 'sellers/update',locals: { seller: @seller }), buyer_id: @seller.id, user_id: @seller.user.id
     @seller.save
   elsif @seller.purchase_status == "cancel purchase" 
     @seller.purchase_status = "purchase"
@@ -103,7 +103,7 @@ end
   end
 
 def my_add
-  @post = my_post
+  @post = Seller.all.includes(:tokens).where(user_id: current_user.id)
 end
 
 

@@ -28,7 +28,7 @@ class TokensController < ApplicationController
   end
 
   def create
-    @token = CarCost.first.tokens.build(token_params)
+    @token = CarCost.last.tokens.build(token_params)
     @token.user_id = current_user.id
     @token.seller_id = current_user.sellers.last.id
 

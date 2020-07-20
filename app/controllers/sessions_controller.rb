@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
               flash[:notice]  ='you have successfully logged in'
             else
               redirect_to root_path
-              flash[:notice] = 'please verify your account'
+              flash[:error] = 'please verify your account'
             end
 
         else
