@@ -60,10 +60,7 @@ class SellersController < ApplicationController
     @seller = Seller.find(params[:id])
     @seller.purchase_status="Sold"
     @seller.save
-    buyer_user=User.find(@seller.buyer_id)
-    BuyerMailer.approve(buyer_user).deliver
-    seller_user = @seller.user
-    SellerMailer.car_sold(seller_user).deliver
+    ApprovePurchaseWorker.perform_async(@seller.id)
     @approve= @seller.tokens
     @approve.each do |p|
       p.status = "SOLD"
@@ -72,13 +69,11 @@ class SellersController < ApplicationController
     redirect_to update_status_sellers_path
   end
 
-
   def reject
     @seller = Seller.find(params[:id]) 
     @seller.purchase_status="purchase"
     @seller.save
-    user=User.find(@seller.buyer_id)
-    BuyerMailer.reject(user).deliver
+    RejectPurchaseWorker.perform_async(@seller.id)
     redirect_to update_status_sellers_path
   end
 
@@ -87,29 +82,28 @@ def toggle_status
   if @seller.purchase_status == "purchase" 
     @seller.purchase_status = "cancel purchase"
     @seller.buyer_id = current_user.id
-      ActionCable.server.broadcast "buyer_purchase_channel", purchase: render_to_string(partial: 'sellers/update',locals: { seller: @seller }), buyer_id: @seller.id, user_id: @seller.user.id
     @seller.save
+    PurchaseNotifyWorker.perform_async(@seller.id)
   elsif @seller.purchase_status == "cancel purchase" 
     @seller.purchase_status = "purchase"
     @seller.buyer_id = current_user.id
-      ActionCable.server.broadcast "buyer_cancel_purchase_channel", buyer_id: @seller.id
+    RejectNotifyWorker.perform_async(@seller.id)
     @seller.save
   end
   redirect_to sellers_path 
 end
 
-  def update_status
-    @updates = Seller.all.where(purchase_status:"cancel purchase", user_id: current_user.id)
-  end
+def update_status
+  @updates = Seller.all.where(purchase_status:"cancel purchase", user_id: current_user.id)
+end
 
 def my_add
   @post = Seller.all.includes(:tokens).where(user_id: current_user.id)
 end
 
-
-  private
+private
 
   def seller_params
-  params.require(:seller).permit(:city_id, :brand_id, :model_id, :registration_year_id, :registration_state_id, :variant_id, :kilometer_driven_id,:token_id, :user_id, :buyer_id)
+    params.require(:seller).permit(:city_id, :brand_id, :model_id, :registration_year_id, :registration_state_id, :variant_id, :kilometer_driven_id,:token_id, :user_id, :buyer_id)
   end
 end

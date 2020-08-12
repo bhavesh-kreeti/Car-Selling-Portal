@@ -14,7 +14,7 @@ RSpec.describe RegistrationYear, type: :model do
 		end
 		it 'uniqueness of registration year' do 
 			registration_year.save
-			expect(duplicate_registration_year).to_not be_valid
+			expect(duplicate_registration_year.save).to eq(false)
 		end
 	end
 

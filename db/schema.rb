@@ -12,17 +12,14 @@
 
 ActiveRecord::Schema.define(version: 2020_07_14_191306) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
-  create_table "brands", force: :cascade do |t|
+  create_table "brands", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name"], name: "index_brands_on_name"
   end
 
-  create_table "car_costs", force: :cascade do |t|
+  create_table "car_costs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "condition", null: false
     t.string "price", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -31,21 +28,21 @@ ActiveRecord::Schema.define(version: 2020_07_14_191306) do
     t.index ["price"], name: "index_car_costs_on_price"
   end
 
-  create_table "cities", force: :cascade do |t|
+  create_table "cities", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name"], name: "index_cities_on_name"
   end
 
-  create_table "kilometer_drivens", force: :cascade do |t|
+  create_table "kilometer_drivens", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name"], name: "index_kilometer_drivens_on_name"
   end
 
-  create_table "locations", force: :cascade do |t|
+  create_table "locations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "address", null: false
     t.float "latitude"
     t.float "longitude"
@@ -56,7 +53,7 @@ ActiveRecord::Schema.define(version: 2020_07_14_191306) do
     t.index ["user_id"], name: "index_locations_on_user_id"
   end
 
-  create_table "models", force: :cascade do |t|
+  create_table "models", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -65,28 +62,28 @@ ActiveRecord::Schema.define(version: 2020_07_14_191306) do
     t.index ["name"], name: "index_models_on_name"
   end
 
-  create_table "registration_states", force: :cascade do |t|
+  create_table "registration_states", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name"], name: "index_registration_states_on_name"
   end
 
-  create_table "registration_years", force: :cascade do |t|
+  create_table "registration_years", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name"], name: "index_registration_years_on_name"
   end
 
-  create_table "roles", force: :cascade do |t|
+  create_table "roles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "roles", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["roles"], name: "index_roles_on_roles"
   end
 
-  create_table "sellers", force: :cascade do |t|
+  create_table "sellers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "city_id", null: false
@@ -109,7 +106,7 @@ ActiveRecord::Schema.define(version: 2020_07_14_191306) do
     t.index ["variant_id"], name: "index_sellers_on_variant_id"
   end
 
-  create_table "tokens", force: :cascade do |t|
+  create_table "tokens", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "phoneno", null: false
     t.string "status", default: "processing"
     t.datetime "created_at", precision: 6, null: false
@@ -124,7 +121,7 @@ ActiveRecord::Schema.define(version: 2020_07_14_191306) do
     t.index ["user_id"], name: "index_tokens_on_user_id"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "email", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -136,7 +133,7 @@ ActiveRecord::Schema.define(version: 2020_07_14_191306) do
     t.index ["role_id"], name: "index_users_on_role_id"
   end
 
-  create_table "variants", force: :cascade do |t|
+  create_table "variants", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

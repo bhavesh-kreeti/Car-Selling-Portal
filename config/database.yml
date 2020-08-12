@@ -14,12 +14,15 @@
 # Configure Using Gemfile
 # gem 'pg'
 #
+
+
+
 default: &default
-  adapter: postgresql
-  encoding: unicode
-  username: postgres
+  adapter: mysql2
+  encoding: utf8mb4
+  username: newuser
   password: password
-  pool: 5
+
 development:
   <<: *default
   database: CarSellingPortal_development

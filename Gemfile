@@ -9,7 +9,7 @@ gem 'geocoder', '~> 1.6', '>= 1.6.2'
 gem 'hirb'
 gem 'jquery-rails', '~> 4.3', '>= 4.3.1'
 gem 'mail', '~> 2.7', '>= 2.7.1'
-gem 'pg', '>= 0.18', '< 2.0'
+gem "mysql2", "~> 0.5.3"
 gem 'puma', '~> 4.1'
 gem 'sass-rails', '>= 6'
 gem 'webpacker', '~> 4.0'
@@ -26,6 +26,7 @@ group :development do
   gem 'listen', '~> 3.2'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'sidekiq'
 end
 
 group :test do
