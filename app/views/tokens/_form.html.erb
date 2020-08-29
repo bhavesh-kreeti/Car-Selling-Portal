@@ -9,7 +9,7 @@
       </div>
        <div class="field text-center text-dark my-2">
        <%= form.label  "Schedule appointment on"%> <br>
-        <%= form.date_select :appointment_date,  'data-behaviour' => 'datepicker', order: [:day, :month, :year], class: "datepicker" %>
+        <%= form.date_field :appointment_date,  'data-behaviour' => 'datepicker', order: [:day, :month, :year], class: "datepicker" %>
       </div>
     <% end %>
       <% if logged_in? && current_user.role.roles == "ADMIN" %>

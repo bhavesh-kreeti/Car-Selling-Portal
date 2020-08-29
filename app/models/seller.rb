@@ -17,13 +17,13 @@ class Seller < ApplicationRecord
   validates :model_id, presence: true
   validates :variant_id, presence: true
   validates :user_id, presence: true
-  scope :car_model, -> car_model_name { where(name: car_model_name )}
-  scope :car_city, -> car_city_name { where(name: car_city_name )}
-  scope :car_brand, -> car_brand_name { where(name: car_brand_name )}
-  scope :car_reg_year, -> car_reg_year_name { where(name: car_reg_year_name )}
-  scope :car_kilometer_driven, -> car_kilometer_driven_name { where(name: car_kilometer_driven_name )}
-  scope :car_variant, -> car_variant_name { where(name: car_variant_name )}
-  scope :car_reg_state, -> car_reg_state_name { where(name:  car_reg_state_name )}
+  scope :car_model, -> car_model_name { includes(:model).where(models: {name: car_model_name} )}
+  scope :car_city, -> car_city_name { includes(:city).where(cities: {name: car_city_name} )}
+  scope :car_brand, -> car_brand_name { includes(:brand).where(brands: {name: car_brand_name}) }
+  scope :car_reg_year, -> car_reg_year_name { includes(:registration_year).where(registration_years: {name: car_reg_year_name})}
+  scope :car_kilometer_driven, -> car_kilometer_driven_name { includes(:kilometer_driven).where(kilometer_drivens: {name: car_kilometer_driven_name})}
+  scope :car_variant, -> car_variant_name { includes(:variant).where(variants: {name: car_variant_name} )}
+  scope :car_reg_state, -> car_reg_state_name { includes(:registration_state).where(registration_states: { name:  car_reg_state_name } )}
   searchkick
 
   def search_data

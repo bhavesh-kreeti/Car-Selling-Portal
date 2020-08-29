@@ -25,12 +25,12 @@ class SellersController < ApplicationController
   def search_city
     @sellers = Seller.all
     @sellers = @sellers.car_city( params[:city_name]) if params[:city_name].present?
-    @@sellers = @sellers.car_model( params[:model_name]) if params[:model_name].present?
-    @@sellers = @sellers.car_brand( params[:brand_name]) if params[:brand_name].present?
-    @@sellers = @sellers.car_reg_year( params[:registration_year_name]) if params[:registration_year_name].present?
-    @@sellers = @sellers.car_reg_year( params[:registration_year_name]) if params[:registration_year_name].present?
-    @@sellers = @sellers.car_variant( params[:variant_name]) if params[:variant_name].present?
-    @@sellers = @sellers.car_reg_state( params[:registration_state_name]) if params[:registration_state_name].present?
+    @sellers = @sellers.car_model( params[:model_name]) if params[:model_name].present?
+    @sellers = @sellers.car_brand( params[:brand_name]) if params[:brand_name].present?
+    @sellers = @sellers.car_reg_year( params[:registration_year_name]) if params[:registration_year_name].present?
+    @sellers = @sellers.car_kilometer_driven( params[:kilometer_driven_name]) if params[:kilometer_driven_name].present?
+    @sellers = @sellers.car_variant( params[:variant_name]) if params[:variant_name].present?
+    @sellers = @sellers.car_reg_state( params[:registration_state_name]) if params[:registration_state_name].present?
     @sellers
   end
 
