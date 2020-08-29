@@ -9,23 +9,11 @@
     <%end%>
 <% end %>
   <%= form_tag search_city_sellers_path, method: 'get' do %>
-    <%= select_tag "city_id", options_from_collection_for_select(City.all, "id", "name",selected: params[:city_id]), onchange:  "this.form.submit();", prompt: "Search by city", class: "custom-select" %>      
-    <% end %>
-    <%= form_tag search_model_sellers_path, method: 'get' do %>
-    <%= select_tag "model_id", options_from_collection_for_select(Model.all, "id", "name",selected: params[:model_id]), onchange:  "this.form.submit();", prompt: "Search by model", class: "custom-select" %>      
-    <% end %>
-    <%= form_tag search_brand_sellers_path, method: 'get' do %>
-    <%= select_tag "brand_id", options_from_collection_for_select(Brand.all, "id", "name",selected: params[:brand_id]), onchange: "this.form.submit();", prompt: "Search by brand", class: "custom-select" %>      
-    <% end %>
-    <%= form_tag search_registration_year_sellers_path, method: 'get' do %>
-    <%= select_tag "registration_year_id", options_from_collection_for_select(RegistrationYear.all, "id", "name",selected: params[:registration_year_id]), onchange: "this.form.submit();", prompt: "Search by Registration Year", class: "custom-select" %>      
-    <% end %>
-     <%= form_tag search_kilometer_driven_sellers_path, method: 'get' do %>
-    <%= select_tag "kilometer_driven_id", options_from_collection_for_select(KilometerDriven.all, "id", "name",selected: params[:kilometer_driven_id]), onchange: "this.form.submit();", prompt: "Search by Kilometer Driven", class: "custom-select" %>      
-    <% end %>
-     <%= form_tag search_variant_sellers_path, method: 'get' do %>
-    <%= select_tag "variant_id", options_from_collection_for_select(Variant.all, "id", "name",selected: params[:variant_id]), onchange: "this.form.submit();", prompt: "Search by Variant", class: "custom-select" %>      
-    <% end %>
-     <%= form_tag search_registration_state_sellers_path, method: 'get' do %>
-    <%= select_tag "registration_state_id", options_from_collection_for_select(RegistrationState.all, "id", "name",selected: params[:registration_state_id]), onchange: "this.form.submit();", prompt: "Search by Registration State", class: "custom-select" %>      
-    <% end %>
+    <%= select_tag "city_name", options_from_collection_for_select(City.all, "name", "name",selected: params[:city_name]), onchange:  "this.form.submit();", prompt: "Search by city", class: "custom-select" %>          
+    <%= select_tag "model_name", options_from_collection_for_select(Model.all, "name", "name",selected: params[:model_name]), onchange:  "this.form.submit();", prompt: "Search by model", class: "custom-select" %>      
+    <%= select_tag "brand_name", options_from_collection_for_select(Brand.all, "name", "name",selected: params[:brand_name]), onchange: "this.form.submit();", prompt: "Search by brand", class: "custom-select" %>      
+    <%= select_tag "registration_year_name", options_from_collection_for_select(RegistrationYear.all, "name", "name",selected: params[:registration_year_id]), onchange: "this.form.submit();", prompt: "Search by Registration Year", class: "custom-select" %>      
+    <%= select_tag "kilometer_driven_name", options_from_collection_for_select(KilometerDriven.all, "name", "name",selected: params[:kilometer_driven_name]), onchange: "this.form.submit();", prompt: "Search by Kilometer Driven", class: "custom-select" %>      
+    <%= select_tag "variant_name", options_from_collection_for_select(Variant.all, "name", "name",selected: params[:variant_name]), onchange: "this.form.submit();", prompt: "Search by Variant", class: "custom-select" %>      
+    <%= select_tag "registration_state_name", options_from_collection_for_select(RegistrationState.all, "name", "name",selected: params[:registration_state_name]), onchange: "this.form.submit();", prompt: "Search by Registration State", class: "custom-select" %>      
+  <% end %>

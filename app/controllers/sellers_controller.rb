@@ -23,7 +23,15 @@ class SellersController < ApplicationController
   end
 
   def search_city
-  @sellers = Seller.car_city( params[:city_id])
+    @sellers = Seller.all
+    @sellers = @sellers.car_city( params[:city_name]) if params[:city_name].present?
+    @@sellers = @sellers.car_model( params[:model_name]) if params[:model_name].present?
+    @@sellers = @sellers.car_brand( params[:brand_name]) if params[:brand_name].present?
+    @@sellers = @sellers.car_reg_year( params[:registration_year_name]) if params[:registration_year_name].present?
+    @@sellers = @sellers.car_reg_year( params[:registration_year_name]) if params[:registration_year_name].present?
+    @@sellers = @sellers.car_variant( params[:variant_name]) if params[:variant_name].present?
+    @@sellers = @sellers.car_reg_state( params[:registration_state_name]) if params[:registration_state_name].present?
+    @sellers
   end
 
   def search_brand
