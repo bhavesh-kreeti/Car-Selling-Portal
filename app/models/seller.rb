@@ -1,5 +1,8 @@
 class Seller < ApplicationRecord
-  
+
+  include Elasticsearch::Model
+  include Elasticsearch::Model::Callbacks
+
   belongs_to :brand, foreign_key: "brand_id"
   belongs_to :user, foreign_key: "user_id"
   belongs_to :city, foreign_key: "city_id"
@@ -8,22 +11,38 @@ class Seller < ApplicationRecord
   belongs_to :registration_year, foreign_key: "registration_year_id"
   belongs_to :model, foreign_key: "model_id"
   belongs_to :variant, foreign_key: "variant_id"
+
   has_many :tokens
-  validates :brand_id, presence: true
+
+  validates :brand_id,              presence: true
   validates :registration_state_id, presence: true
-  validates :city_id, presence: true
-  validates :kilometer_driven_id, presence: true
-  validates :registration_year_id, presence: true 
-  validates :model_id, presence: true
-  validates :variant_id, presence: true
-  validates :user_id, presence: true
-  scope :car_model, -> car_model_name { includes(:model).where(models: {name: car_model_name} )}
-  scope :car_city, -> car_city_name { includes(:city).where(cities: {name: car_city_name} )}
-  scope :car_brand, -> car_brand_name { includes(:brand).where(brands: {name: car_brand_name}) }
-  scope :car_reg_year, -> car_reg_year_name { includes(:registration_year).where(registration_years: {name: car_reg_year_name})}
+  validates :city_id,               presence: true
+  validates :kilometer_driven_id,   presence: true
+  validates :registration_year_id,  presence: true 
+  validates :model_id,              presence: true
+  validates :variant_id,            presence: true
+  validates :user_id,               presence: true
+
+  scope :car_model,            -> car_model_name            { includes(:model).where(models: {name: car_model_name} ) }
+  scope :car_city,             -> car_city_name             { includes(:city).where(cities: {name: car_city_name} ) }
+  scope :car_brand,            -> car_brand_name            { includes(:brand).where(brands: {name: car_brand_name}) }
+  scope :car_reg_year,         -> car_reg_year_name         { includes(:registration_year).where(registration_years: { name: car_reg_year_name }) }
   scope :car_kilometer_driven, -> car_kilometer_driven_name { includes(:kilometer_driven).where(kilometer_drivens: {name: car_kilometer_driven_name})}
-  scope :car_variant, -> car_variant_name { includes(:variant).where(variants: {name: car_variant_name} )}
-  scope :car_reg_state, -> car_reg_state_name { includes(:registration_state).where(registration_states: { name:  car_reg_state_name } )}
+  scope :car_variant,          -> car_variant_name          { includes(:variant).where(variants: {name: car_variant_name }) }
+  scope :car_reg_state,        -> car_reg_state_name        { includes(:registration_state).where(registration_states: { name:  car_reg_state_name }) }
+
+  def as_indexed_json(options = {})
+    self.as_json(only: [:id],
+      include: {
+        city: { only: [:name] },
+        model: { only: [:name] },
+        variant: { only: [:name] },
+        brand: { only: [:name] },
+        registration_state: { only: [:name] }
+      }
+    )
+  end
+
   searchkick
 
   def search_data

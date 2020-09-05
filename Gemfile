@@ -38,4 +38,7 @@ group :test do
   gem 'webdrivers'
 end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'elasticsearch-model', '~> 7.1', '>= 7.1.1'
+gem 'elasticsearch-rails', '~> 7.1', '>= 7.1.1'
 gem 'searchkick', '~> 4.4', '>= 4.4.1'
+gem 'rspec-sidekiq', '~> 3.1'

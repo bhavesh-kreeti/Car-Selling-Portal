@@ -10,7 +10,7 @@ class SellersController < ApplicationController
       query = params[:search]
       @sellers =   Seller.search(query)
     else
-      @sellers = Seller.search("*")
+      @sellers = Seller.all
     end
   end 
 

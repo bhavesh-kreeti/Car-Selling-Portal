@@ -6,8 +6,8 @@ let(:brand_duplicate) { build(:brand) }
 
 	describe ".validation" do 
 		it 'brand name cannot be nil' do 
-      brand.name = nil
-      expect(brand).to_not be_valid
+			brand.name = nil
+			expect(brand).to_not be_valid
 		end
 			
 		it 'brand name should be present' do 
@@ -22,11 +22,11 @@ let(:brand_duplicate) { build(:brand) }
 
 	describe "Association" do
 		context "with seller" do 
-			it {should have_many(:sellers)}
+			it { should have_many(:sellers) }
 		end
 
 		context "with model" do
-			it { should have_many(:models)}
+			it { should have_many(:models) }
 		end
 	end
 

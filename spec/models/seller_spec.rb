@@ -1,31 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Seller, type: :model do
-  let(:seller) { build(:seller)}
-  
-  before(:each) do 
-  city = create(:city)
-  brand = create(:brand)
-  model = build(:model)
-  model.brand_id = brand.id
-  model.save
-  registration_state = create(:registration_state)
-  registration_year = create(:registration_year)
-  kilometer_driven = create(:kilometer_driven)
-  variant = create(:variant)
-  user = build(:user)
-  role = create(:role)
-  user.role_id = role.id
-  user.save
-  seller.city_id = city.id
-  seller.registration_year_id = registration_year.id
-  seller.registration_state_id = registration_state.id
-  seller.variant_id = variant.id
-  seller.kilometer_driven_id = kilometer_driven.id
-  seller.user_id = user.id
-  seller.brand_id = brand.id
-  seller.model_id =  model.id
-  end
+  let(:seller) { build(:seller, city_id: 1, model_id: 1, registration_state_id: 1, registration_year_id: 1, brand_id: 1, variant_id: 1)}
 
     describe "Validation " do
 
@@ -34,18 +10,12 @@ RSpec.describe Seller, type: :model do
           seller.city_id = nil
           expect(seller.save).to eq(false)
         end
-        it 'city id must be present' do
-          expect(seller).to be_valid
-        end
       end
 
       describe 'brand' do
         it 'brand id cannot be nul' do
           seller.brand_id = nil
           expect(seller.save).to eq(false)
-        end
-        it 'brand id must be present' do
-          expect(seller).to be_valid
         end
       end
 
@@ -54,18 +24,12 @@ RSpec.describe Seller, type: :model do
           seller.model_id = nil
           expect(seller.save).to eq(false)
         end
-        it 'model id must be present' do
-          expect(seller).to be_valid
-        end
       end 
 
       describe 'registration_year' do
         it 'registration_year id cannot be nul' do
           seller.registration_year_id = nil
           expect(seller.save).to eq(false)
-        end
-        it 'registration_year id must be present' do
-          expect(seller).to be_valid
         end
       end
 
@@ -74,18 +38,12 @@ RSpec.describe Seller, type: :model do
           seller.registration_state_id = nil
           expect(seller.save).to eq(false)
         end
-        it 'registration_state id must be present' do
-          expect(seller).to be_valid
-        end
       end
  
       describe 'kilometer_driven' do
         it 'kilometer_driven id cannot be nul' do
           seller.kilometer_driven_id = nil
           expect(seller.save).to eq(false)
-        end
-        it 'kilometer_driven id must be present' do
-          expect(seller).to be_valid
         end
       end
  
@@ -94,18 +52,12 @@ RSpec.describe Seller, type: :model do
           seller.variant_id = nil
           expect(seller.save).to eq(false)
         end
-        it 'variant id must be present' do
-          expect(seller).to be_valid
-        end
       end
 
       describe 'user' do
         it 'user id cannot be nul' do
           seller.user_id = nil
           expect(seller.save).to eq(false)
-        end
-        it 'user id must be present' do
-          expect(seller).to be_valid
         end
       end
     end

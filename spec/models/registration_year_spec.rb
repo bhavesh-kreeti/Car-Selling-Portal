@@ -5,7 +5,7 @@ RSpec.describe RegistrationYear, type: :model do
 	let(:duplicate_registration_year) {build(:registration_year) }
 
   describe "Validation" do 
-		it ' presence of registration year' do 
+		it 'presence of registration year' do 
 			expect(registration_year.save).to eq(true)
 		end
 		it 'cannot be nil' do
@@ -20,7 +20,7 @@ RSpec.describe RegistrationYear, type: :model do
 
 	describe "Association" do
 		context "with seller" do 
-			it {should have_many(:sellers)}
+			it { should have_many(:sellers) }
     end
   end    
 end
