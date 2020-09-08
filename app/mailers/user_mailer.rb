@@ -6,6 +6,4 @@ class UserMailer < ActionMailer::Base
 		@user = user
 		mail(to: @user.email , subject: 'Please confirm your email')
 	end
-
-
 end

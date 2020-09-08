@@ -16,7 +16,6 @@ class CarCostsController < ApplicationController
 
   def create
     @carcost = CarCost.new(car_cost_params)
-
     if @carcost.save
       redirect_to car_costs_path, notice: 'Carcost was successfully created.'
     else
@@ -31,7 +30,6 @@ class CarCostsController < ApplicationController
       render :edit
     end
   end
-
 
   private
     def set_car_cost

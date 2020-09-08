@@ -7,7 +7,7 @@ class TokensController < ApplicationController
   include ApplicationHelper
   def index
     @mylist = current_user.tokens
-      @tokens = Token.all
+    @tokens = Token.all
   end
 
   def my_add
@@ -20,8 +20,7 @@ class TokensController < ApplicationController
 
   def show
     flash[:notice] = "status updated successfully"
-    redirect_to update_status_sellers_path
-     
+    redirect_to update_status_sellers_path 
   end
 
   def edit
@@ -40,7 +39,6 @@ class TokensController < ApplicationController
   end
 
   def update
-    
     if @token.update(token_params)
       flash[:notice] = 'Status of the post changed.'
       SellerPostWorker.perform_async(@token.id)
@@ -55,7 +53,6 @@ class TokensController < ApplicationController
   def status_search
     @search = Token.all.where(id: params[:q])
   end
-  
 
   private
     def set_token

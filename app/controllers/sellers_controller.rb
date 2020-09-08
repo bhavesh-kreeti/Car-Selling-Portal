@@ -15,11 +15,7 @@ class SellersController < ApplicationController
   end 
 
   def new
-  @seller = Seller.new
-  end
-
-  def search_model
-  @sellers = Seller.car_model( params[:model_id])
+    @seller = Seller.new
   end
 
   def search_city
@@ -34,33 +30,13 @@ class SellersController < ApplicationController
     @sellers
   end
 
-  def search_brand
-  @sellers = Seller.car_brand( params[:brand_id])
-  end
-
-  def search_registration_year
-  @sellers = Seller.car_reg_year( params[:registration_year_id])
-  end
-
-  def search_kilometer_driven
-  @sellers = Seller.car_kilometer_driven( params[:kilometer_driven_id])
-  end
-
-  def search_variant
-  @sellers = Seller.car_variant( params[:variant_id])
-  end
-
-  def search_registration_state
-  @sellers = Seller.car_reg_state( params[:registration_state_id])
-  end
-  
   def create
   @seller = Seller.new(seller_params)
   @seller.user_id = current_user.id
     if @seller.save
       redirect_to new_token_path, notice: 'Generate appointment.' 
     else
-    render :new
+      render :new
     end
   end
 
@@ -101,13 +77,17 @@ def toggle_status
   redirect_to sellers_path 
 end
 
-def update_status
-  @updates = Seller.all.where(purchase_status:"cancel purchase", user_id: current_user.id)
-end
+  def update_status
+    @updates = Seller.all.where(purchase_status:"cancel purchase", user_id: current_user.id)
+  end
 
-def my_add
-  @post = Seller.all.includes(:tokens).where(user_id: current_user.id)
-end
+  def my_add
+    @post = Seller.all.includes(:tokens).where(user_id: current_user.id)
+  end
+
+  def show
+    @search = Token.all.where(id: params[:q])
+  end
 
 private
 

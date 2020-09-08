@@ -3,7 +3,6 @@ class AdminController < ApplicationController
   before_action :require_admin
     
   def admin
-  
   end
 
   def approve_appointment

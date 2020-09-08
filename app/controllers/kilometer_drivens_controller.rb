@@ -17,37 +17,33 @@ class KilometerDrivensController < ApplicationController
   def create
     @kilometerdriven = KilometerDriven.new(kilometer_driven_params)
 
-      if @kilometerdriven.save
-        redirect_to kilometer_drivens_path, notice: 'Kilometerdriven was successfully created.' 
-      else
-        render :new
-      end
-    
+    if @kilometerdriven.save
+      redirect_to kilometer_drivens_path, notice: 'Kilometerdriven was successfully created.' 
+    else
+      render :new
+    end
   end
 
   def update
-      if @kilometerdriven.update(kilometer_driven_params)
-        redirect_to kilometer_drivens_path, notice: 'Kilometerdriven was successfully updated.'
-      else
-        render :edit 
-      end
-    
+    if @kilometerdriven.update(kilometer_driven_params)
+      redirect_to kilometer_drivens_path, notice: 'Kilometerdriven was successfully updated.'
+    else
+      render :edit 
+    end
   end
 
   def destroy
     @kilometerdriven.destroy
-      redirect_to kilometer_drivens_url, notice: 'Kilometerdriven was successfully destroyed.' 
+    redirect_to kilometer_drivens_url, notice: 'Kilometerdriven was successfully destroyed.' 
   end
 
-
-
-
   private
-    def set_kilometer_driven
-      @kilometerdriven = KilometerDriven.find(params[:id])
-    end
+  
+  def set_kilometer_driven
+    @kilometerdriven = KilometerDriven.find(params[:id])
+  end
 
-    def kilometer_driven_params
-      params.require(:kilometer_driven).permit(:name)
-    end
+  def kilometer_driven_params
+    params.require(:kilometer_driven).permit(:name)
+  end
 end

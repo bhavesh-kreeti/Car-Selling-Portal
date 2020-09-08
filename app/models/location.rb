@@ -1,7 +1,8 @@
 class Location < ApplicationRecord
-    validates :address, presence: true, uniqueness: { case_sensitive: false }
-
-    geocoded_by :address
-    after_validation :geocode
-    belongs_to :user
-  end
+  after_validation :geocode
+  geocoded_by :address
+  
+  validates :address, presence: true, uniqueness: { case_sensitive: false }
+  
+  belongs_to :user
+end

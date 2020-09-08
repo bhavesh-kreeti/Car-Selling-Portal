@@ -17,36 +17,33 @@ class ModelsController < ApplicationController
   def create
     @model = Model.new(model_params)
 
-      if @model.save
-        redirect_to models_path, notice: 'Model was successfully created.' 
-      else
-        render :new
-      end
-    
+    if @model.save
+      redirect_to models_path, notice: 'Model was successfully created.' 
+    else
+      render :new
+    end
   end
 
   def update
-      if @model.update(model_params)
-        redirect_to models_path, notice: 'Model was successfully updated.'
-      else
-        render :edit
-      end
-    
+    if @model.update(model_params)
+      redirect_to models_path, notice: 'Model was successfully updated.'
+    else
+      render :edit
+    end
   end
-
 
   def destroy
     @model.destroy
       redirect_to models_url, notice: 'Model was successfully destroyed.'
   end
 
-
   private
-    def set_model
-      @model = Model.find(params[:id])
-    end
+  
+  def set_model
+    @model = Model.find(params[:id])
+  end
 
-    def model_params
-      params.require(:model).permit(:name,:brand_id)
-    end
+  def model_params
+    params.require(:model).permit(:name,:brand_id)
+  end
 end

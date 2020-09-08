@@ -5,33 +5,29 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
-
-
   def new
     @user = User.new
   end
-
 
   def edit
   end
 
   def create
     @user = User.new(user_params)
-      if @user.save
-      UserMailer.registration_confirmation(@user).deliver
-      #  session[:user_id] = @user.id
-        redirect_to root_path, notice: 'Registration compleated pleasse confirm your account.' 
-      else
-        render :new
-      end
+    if @user.save
+    UserMailer.registration_confirmation(@user).deliver
+    #  session[:user_id] = @user.id
+      redirect_to root_path, notice: 'Registration compleated pleasse confirm your account.' 
+    else
+      render :new
+    end
   end
 
   def confirm_email
     user = User.find_by_confirm_token(params[:id])
     if user
       user.email_activate
-      flash[:notice] = "Welcome ! Your email has been confirmed.
-      Please sign in to continue."
+      flash[:notice] = "Welcome ! Your email has been confirmed. Please sign in to continue."
       redirect_to root_path
     else
       flash[:error] = "Sorry. User does not exist"
@@ -39,21 +35,19 @@ class UsersController < ApplicationController
     end
 end
 
-
   def update
-      if @user.update(user_params)
-        new_phoneno = params[:user][:phoneno]
-        User.update_phoneno(new_phoneno,user_params[:email])
-        redirect_to root_path, notice: 'User was successfully updated.' 
-      else
-        render :edit
-      end
+    if @user.update(user_params)
+      new_phoneno = params[:user][:phoneno]
+      User.update_phoneno(new_phoneno,user_params[:email])
+      redirect_to root_path, notice: 'User was successfully updated.' 
+    else
+      render :edit
+    end
   end
-
 
   def destroy
     @user.destroy
-      redirect_to users_url, notice: 'User was successfully destroyed.'
+    redirect_to users_url, notice: 'User was successfully destroyed.'
   end
 
   private

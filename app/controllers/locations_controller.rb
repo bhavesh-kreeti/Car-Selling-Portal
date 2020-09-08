@@ -19,7 +19,6 @@ before_action :require_seller
     end
   end
 
-
   private
     def location_params
       params.require(:location).permit(:address, :latitude, :longitude,:user_id)

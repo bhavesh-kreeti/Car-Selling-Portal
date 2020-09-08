@@ -3,14 +3,14 @@ class Seller < ApplicationRecord
   include Elasticsearch::Model
   include Elasticsearch::Model::Callbacks
 
-  belongs_to :brand, foreign_key: "brand_id"
-  belongs_to :user, foreign_key: "user_id"
-  belongs_to :city, foreign_key: "city_id"
-  belongs_to :kilometer_driven, foreign_key: "kilometer_driven_id"
+  belongs_to :brand,              foreign_key: "brand_id"
+  belongs_to :user,               foreign_key: "user_id"
+  belongs_to :city,               foreign_key: "city_id"
+  belongs_to :kilometer_driven,   foreign_key: "kilometer_driven_id"
   belongs_to :registration_state, foreign_key: "registration_state_id"
-  belongs_to :registration_year, foreign_key: "registration_year_id"
-  belongs_to :model, foreign_key: "model_id"
-  belongs_to :variant, foreign_key: "variant_id"
+  belongs_to :registration_year,  foreign_key: "registration_year_id"
+  belongs_to :model,              foreign_key: "model_id"
+  belongs_to :variant,            foreign_key: "variant_id"
 
   has_many :tokens
 
