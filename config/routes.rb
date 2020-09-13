@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resources :kilometer_drivens, except: [:show]
   resources :variants, except: [:show]
  
-
+  resources :registration_years, only: [:index]
   resources :registration_states, except: [:show]
   resources :brands, except: [:show]
   resources :cities, except: [:show]

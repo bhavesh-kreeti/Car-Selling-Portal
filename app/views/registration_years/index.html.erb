@@ -1,0 +1,5 @@
+<div class="m-auto">
+  <h1 class="text-center card-header">Registration Year index </h1>
+  <p> All the registration years are listed below
+  <%= select("post", "category", RegistrationYear.all.collect { |p| [ p.name, p.id ] }, { prompt: "Registration Years" }, class: "form-control my-5") %>
+</div>
